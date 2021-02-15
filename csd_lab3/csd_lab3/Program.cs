@@ -7,6 +7,8 @@ namespace csd_lab3
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+
+            //input and output
         }
     }
 }
