@@ -9,6 +9,8 @@ namespace csd_lab3
             Console.WriteLine("Hello World!");
 
             //input and output
+
+            // use composite design pattern
         }
     }
 }
