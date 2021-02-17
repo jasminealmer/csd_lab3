@@ -4,7 +4,7 @@ using System.Text;
 
 namespace csd_lab3
 {
-    class TicTacToe
+    class Game : IBoard
     {
         //game board. methods that belongs to game
 
