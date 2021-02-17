@@ -6,6 +6,6 @@ namespace csd_lab3
 {
     class Parse
     {
-        //parse the input
+        //parse the input and output to correct formats
     }
 }
