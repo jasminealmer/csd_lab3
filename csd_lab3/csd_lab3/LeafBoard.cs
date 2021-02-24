@@ -6,10 +6,6 @@ namespace csd_lab3
 {
     class LeafBoard : IComponentBoard
     {
-        //create leaf board
-        //put in input values X and O moves
-
-        //deklarera leafboard
         public string[][] Leafboard { get; private set; }
         public string Winner { get; private set; }
 
@@ -30,9 +26,9 @@ namespace csd_lab3
             List<string> x = new List<string>();
             List<string> o = new List<string>();
 
+            //Decides player for each move
             for (int i = 0; i < moves.Length; i++)
             {
-
                 if (i % 2 == 0)
                 {
                     x.Add(moves[i]);
@@ -43,6 +39,7 @@ namespace csd_lab3
                 }
             }
 
+            //gives each cell the correct value if played
             foreach (string[] cell in leafboard)
             {
                 foreach (string move in x)
@@ -70,6 +67,7 @@ namespace csd_lab3
                 }
             }
 
+            //sets the properties of a Leafboard
             Leafboard = leafboard;
             Winner = DeterminateWinner();
         }

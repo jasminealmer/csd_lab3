@@ -9,9 +9,11 @@ namespace csd_lab3
             string input = args[0];
 
             Parse parse = new Parse();
-            string[] output = parse.ParseInput(input);
+            string[] parsedInput = parse.ParseInput(input);
+            
+            parse.GenerateTree(parsedInput);
 
-            LeafBoard leafboard = new LeafBoard(output);
+            LeafBoard leafboard = new LeafBoard(parsedInput);
 
             Console.WriteLine(leafboard.Winner);
 

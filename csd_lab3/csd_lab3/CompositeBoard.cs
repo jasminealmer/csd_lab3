@@ -6,6 +6,19 @@ namespace csd_lab3
 {
     class CompositeBoard : IComponentBoard
     {
+        public LeafBoard NW;
+        public LeafBoard NC;
+        public LeafBoard NE;
+        public LeafBoard CW;
+        public LeafBoard CC;
+        public LeafBoard CE;
+        public LeafBoard SW;
+        public LeafBoard SC;
+        public LeafBoard SE;
+
+        //kan bestå av leaf boards ELLER composite boards??
+
+
         //private List<IComponentBoard> boards;
 
         //public CompositeBoard(List<IComponentBoard> boards)
@@ -39,7 +52,7 @@ namespace csd_lab3
         //method 1: recurse through pattern composite to play boards
         //method 2: sends in and saves moves to Player (x/o), remember to terminate if wrong move etc
         //method 3: calculate win/loose for each game (här eller i Player?)
-        
+
         //andra methods: skicka ut output enl. dokument
     }
 }
