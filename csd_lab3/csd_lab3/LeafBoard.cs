@@ -6,22 +6,38 @@ namespace csd_lab3
 {
     class LeafBoard : IComponentBoard
     {
-        public string[][] Leafboard { get; private set; }
+        //public string[][] Leafboard { get; private set; }
+        public string[] cells = { "NW", "NC", "NE", "CW", "CC", "CE", "SW", "SC", "SE" };
         public string Winner { get; private set; }
 
-        public LeafBoard(string[] moves)
+        public LeafBoard(string cell, string player)
         {
-            string[] cell1 = new string[2] { "NW", null };
-            string[] cell2 = new string[2] { "NC", null };
-            string[] cell3 = new string[2] { "NE", null };
-            string[] cell4 = new string[2] { "CW", null };
-            string[] cell5 = new string[2] { "CC", null };
-            string[] cell6 = new string[2] { "CE", null };
-            string[] cell7 = new string[2] { "SW", null };
-            string[] cell8 = new string[2] { "SC", null };
-            string[] cell9 = new string[2] { "SE", null };
 
-            string[][] leafboard = new string[][] { cell1, cell2, cell3, cell4, cell5, cell6, cell7, cell8, cell9 };
+            for (int i = 0; i < cells.Length; i++)
+            {
+                if (cells[i] == cell)
+                {
+                    cells[i] = player;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
+            Winner = DeterminateWinner();
+
+            //string[] cell1 = new string[2] { "NW", null };
+            //string[] cell2 = new string[2] { "NC", null };
+            //string[] cell3 = new string[2] { "NE", null };
+            //string[] cell4 = new string[2] { "CW", null };
+            //string[] cell5 = new string[2] { "CC", null };
+            //string[] cell6 = new string[2] { "CE", null };
+            //string[] cell7 = new string[2] { "SW", null };
+            //string[] cell8 = new string[2] { "SC", null };
+            //string[] cell9 = new string[2] { "SE", null };
+
+            //string[][] leafboard = new string[][] { cell1, cell2, cell3, cell4, cell5, cell6, cell7, cell8, cell9 };
 
             List<string> x = new List<string>();
             List<string> o = new List<string>();
@@ -67,54 +83,56 @@ namespace csd_lab3
                 }
             }
 
-            //sets the properties of a Leafboard
-            Leafboard = leafboard;
-            Winner = DeterminateWinner();
         }
 
         private string DeterminateWinner()
         {
             //check winner horinzontally
-            if (Leafboard[0][1] == Leafboard[1][1] && Leafboard[1][1] == Leafboard[2][1] && Leafboard[0][1] != null)
+            if (cells[0] == cells[1] && cells[1] == cells[2] && cells[0] != null)
             {
-                return Leafboard[0][1];
+                return cells[0];
             }
-            else if (Leafboard[3][1] == Leafboard[4][1] && Leafboard[4][1] == Leafboard[5][1] && Leafboard[3][1] != null)
+            else if (cells[3] == cells[4] && cells[4] == cells[5] && cells[3] != null)
             {
-                return Leafboard[3][1];
+                return cells[3];
             }
-            else if (Leafboard[6][1] == Leafboard[7][1] && Leafboard[7][1] == Leafboard[8][1] && Leafboard[6][1] != null)
+            else if (cells[6] == cells[7] && cells[7] == cells[8] && cells[6] != null)
             {
-                return Leafboard[6][1];
+                return cells[6];
             }
 
             //check winner vertically
-            else if (Leafboard[0][1] == Leafboard[3][1] && Leafboard[3][1] == Leafboard[6][1] && Leafboard[0][1] != null)
+            else if (cells[0] == cells[3] && cells[3] == cells[6] && cells[0] != null)
             {
-                return Leafboard[0][1];
+                return cells[0];
             }
-            else if (Leafboard[1][1] == Leafboard[4][1] && Leafboard[4][1] == Leafboard[7][1] && Leafboard[1][1] != null)
+            else if (cells[1] == cells[4] && cells[4] == cells[7] && cells[1] != null)
             {
-                return Leafboard[1][1];
+                return cells[1];
             }
-            else if (Leafboard[2][1] == Leafboard[5][1] && Leafboard[5][1] == Leafboard[8][1] && Leafboard[2][1] != null)
+            else if (cells[2] == cells[5] && cells[5] == cells[8] && cells[2] != null)
             {
-                return Leafboard[2][1];
+                return cells[2];
             }
 
             //check winner diagonally
-            else if (Leafboard[0][1] == Leafboard[4][1] && Leafboard[4][1] == Leafboard[8][1] && Leafboard[0][1] != null)
+            else if (cells[0] == cells[4] && cells[4] == cells[8] && cells[0] != null)
             {
-                return Leafboard[0][1];
+                return cells[0];
             }
-            else if (Leafboard[6][1] == Leafboard[4][1] && Leafboard[4][1] == Leafboard[2][1] && Leafboard[6][1] != null)
+            else if (cells[6] == cells[4] && cells[4] == cells[2] && cells[6] != null)
             {
-                return Leafboard[6][1];
+                return cells[6];
             }
             else
             {
-                return "No winner determined.";
+                return null;
             }
+
+        }
+
+        public void MakeMove(string cell, string player)
+        {
 
         }
 

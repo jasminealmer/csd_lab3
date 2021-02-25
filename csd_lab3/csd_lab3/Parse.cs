@@ -28,8 +28,33 @@ namespace csd_lab3
             return splittedInput;
         }
 
+        //Assign players of the moves
+        public List<List<string>> AssignPlayer(string[] moves)
+        {
+
+        }
+
         public string[] GenerateTree(string[] input)
         {
+
+            //List<string> x = AssignPlayer(input).ElementAt(0);
+
+            List<string> x = new List<string>();
+            List<string> o = new List<string>();
+
+            //Decides player for each move
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    x.Add(input[i]);
+                }
+                else
+                {
+                    o.Add(input[i]);
+                }
+            }
+
             int depth = 0;
             string firstLevel = input[0];
 
@@ -50,83 +75,38 @@ namespace csd_lab3
                     //separates to NW and CC
                     string[] separatedCoordinates = item.Split(".");
 
-                    for (int i = 0; i < separatedCoordinates.Length; i++)
+                    if (item.StartsWith("NW"))
                     {
-                        if (i == depth-1)
+                        IComponentBoard NWcomponent = null;
+                        for (int i = separatedCoordinates.Length - 1; i > 0; i--)
                         {
-                            //create composite board with leaf boards!
-
-
+                            if (i == separatedCoordinates.Length - 1)
+                            {
+                                NWcomponent = new LeafBoard(separatedCoordinates[i], player);
+                            }
+                            else
+                            {
+                                NWcomponent = new CompositeBoard(NWcomponent); //med leafboardet!!
+                            }
                         }
-                        else
-                        {
-                            //create composite board
-                        }
-                        if (item.StartsWith("NW"))
-                        {
-
-                            //create composite board
-                        }
+                        //return component;
+                    }
+                    else if (item.StartsWith("NC"))
+                    {
+                        //samma kod
                     }
 
-                    
 
-                    for (int i = 0; i < separatedCoordinates.Length; i++)
-                    {
-                        if (separatedCoordinates[0] == "NW")
-                        {
 
-                        }
-                        else if (separatedCoordinates[0] == "NC")
-                        {
-
-                        }
-                    }
 
                 }
 
 
-                //detta är knas!!!!
 
-                string[] coordinatesForLeafBoard;
-                //go through all items: "NW.CC, CC.SE ..." for example
-                foreach  (string item in input)
-                {
-                    //separate item "NW.CC" to "NW" and "CC"
-                    string[] separatedCoordinates = item.Split(".");
-
-                    //CC and NW (start with leafboard)
-                    Array.Reverse(separatedCoordinates);
-
-                    for (int i = 0; i < separatedCoordinates.Length; i++)
-                    {
-                        //CC
-                        if (i == 0)
-                        {
-                            
-                            //skapa leafboard med input CC
-                        }
-                        //NW
-                        else
-                        {
-
-                        }
-                    }
-
-                }
-                
-
-                for (int i = 0; i < depth; i++)
-                {
-
-                }
-            }
-            else
-            {
-                return input;
-            }
+            }   
 
         }
+
 
 
 

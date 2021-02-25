@@ -6,17 +6,22 @@ namespace csd_lab3
 {
     class CompositeBoard : IComponentBoard
     {
-        public LeafBoard NW;
-        public LeafBoard NC;
-        public LeafBoard NE;
-        public LeafBoard CW;
-        public LeafBoard CC;
-        public LeafBoard CE;
-        public LeafBoard SW;
-        public LeafBoard SC;
-        public LeafBoard SE;
+        public List<IComponentBoard> children { get; private set; }
 
-        //kan bestå av leaf boards ELLER composite boards??
+        public CompositeBoard(IComponentBoard child)
+        {
+            children.Add(child);
+        }
+
+        public void MakeMove(string cell, string player)
+        {
+            //foreach (var child in children)
+            //{
+            //    children.Add = player;
+            //}
+        }
+
+        //kan bestå av leaf boards ELLER composite boards?? En string "NW"?
 
 
         //private List<IComponentBoard> boards;

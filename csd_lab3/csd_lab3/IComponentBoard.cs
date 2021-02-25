@@ -6,12 +6,9 @@ namespace csd_lab3
 {
     interface IComponentBoard
     {
-        public void PlayGame() 
-        {
-            //method to be used for Cell and Game
-            //will return something for output?
 
-        }
+        public void MakeMove(string cell, string player);
+
         //Printinfo
         public void PrintInfo(string info)
         {
