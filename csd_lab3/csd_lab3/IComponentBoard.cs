@@ -8,11 +8,12 @@ namespace csd_lab3
     {
 
         public void MakeMove(string cell, string player);
+        public string DeterminateWinner(); 
 
         //Printinfo
-        public void PrintInfo(string info)
-        {
-            Console.WriteLine(info);
-        }
+        //public void PrintInfo(string info)
+        //{
+        //    Console.WriteLine(info);
+        //}
     }
 }

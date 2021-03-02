@@ -29,15 +29,13 @@ namespace csd_lab3
         }
 
         //Assign players of the moves
-        public List<List<string>> AssignPlayer(string[] moves)
+        //public List<List<string>> AssignPlayer(string[] moves)
+        //{
+
+        //}
+
+        public IComponentBoard GenerateTree(string[] input)
         {
-
-        }
-
-        public string[] GenerateTree(string[] input)
-        {
-
-            //List<string> x = AssignPlayer(input).ElementAt(0);
 
             List<string> x = new List<string>();
             List<string> o = new List<string>();
@@ -72,31 +70,43 @@ namespace csd_lab3
                 //go through all items: "NW.CC, CC.SE ..." for example
                 foreach (string item in input)
                 {
+                    string player;
+
+                    if (x.Contains(item))
+                    {
+                        player = "x";
+                    }
+                    else if (o.Contains(item))
+                    {
+                        player = "o";
+                    }
+
                     //separates to NW and CC
                     string[] separatedCoordinates = item.Split(".");
 
-                    if (item.StartsWith("NW"))
+                    if (item.StartsWith("NW")) //den kommer komma in här fler gånger, hur ska den veta att ta den redan existerande NW?
                     {
+
                         IComponentBoard NWcomponent = null;
                         for (int i = separatedCoordinates.Length - 1; i > 0; i--)
                         {
                             if (i == separatedCoordinates.Length - 1)
                             {
-                                NWcomponent = new LeafBoard(separatedCoordinates[i], player);
+                                NWcomponent = new LeafBoard(separatedCoordinates[i], player); //varför tar den inte emot player?
                             }
                             else
                             {
                                 NWcomponent = new CompositeBoard(NWcomponent); //med leafboardet!!
                             }
                         }
-                        //return component;
+                        return NWcomponent;
                     }
                     else if (item.StartsWith("NC"))
                     {
                         //samma kod
                     }
 
-
+                    //fortsätt
 
 
                 }
