@@ -28,30 +28,28 @@ namespace csd_lab3
             return splittedInput;
         }
 
+        readonly List<string> x = new List<string>();
+        readonly List<string> o = new List<string>();
+
         //Assign players of the moves
-        //public List<List<string>> AssignPlayer(string[] moves)
-        //{
-
-        //}
-
-        public IComponentBoard GenerateTree(string[] input)
+        public void AssignPlayers(string[] moves)
         {
-
-            List<string> x = new List<string>();
-            List<string> o = new List<string>();
-
-            //Decides player for each move
-            for (int i = 0; i < input.Length; i++)
+            for (int i = 0; i < moves.Length; i++)
             {
                 if (i % 2 == 0)
                 {
-                    x.Add(input[i]);
+                    x.Add(moves[i]);
                 }
                 else
                 {
-                    o.Add(input[i]);
+                    o.Add(moves[i]);
                 }
             }
+        }
+
+        public IComponentBoard GenerateTree(string[] input)
+        {
+            AssignPlayers(input);
 
             int depth = 0;
             string firstLevel = input[0];
@@ -67,6 +65,8 @@ namespace csd_lab3
 
             if (depth > 0)
             {
+                
+
                 //go through all items: "NW.CC, CC.SE ..." for example
                 foreach (string item in input)
                 {
@@ -81,12 +81,13 @@ namespace csd_lab3
                         player = "o";
                     }
 
+
+
                     //separates to NW and CC
                     string[] separatedCoordinates = item.Split(".");
 
                     if (item.StartsWith("NW")) //den kommer komma in här fler gånger, hur ska den veta att ta den redan existerande NW?
                     {
-
                         IComponentBoard NWcomponent = null;
                         for (int i = separatedCoordinates.Length - 1; i > 0; i--)
                         {
@@ -110,10 +111,28 @@ namespace csd_lab3
 
 
                 }
+            }
 
+            else
+            {
+                IComponentBoard leafboard = null;
+                foreach (string item in input)
+                {
+                    string player;
 
+                    if (x.Contains(item))
+                    {
+                        player = "x";
+                    }
+                    else if (o.Contains(item))
+                    {
+                        player = "o";
+                    }
 
-            }   
+                    leafboard = new LeafBoard(item, player);
+                }
+
+            }
 
         }
 
