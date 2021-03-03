@@ -66,11 +66,10 @@ namespace csd_lab3
             if (depth > 0)
             {
                 
-
                 //go through all items: "NW.CC, CC.SE ..." for example
                 foreach (string item in input)
                 {
-                    string player;
+                    string player = "";
 
                     if (x.Contains(item))
                     {
@@ -81,23 +80,22 @@ namespace csd_lab3
                         player = "o";
                     }
 
-
-
                     //separates to NW and CC
                     string[] separatedCoordinates = item.Split(".");
 
                     if (item.StartsWith("NW")) //den kommer komma in här fler gånger, hur ska den veta att ta den redan existerande NW?
                     {
+                        //nu skapar jag en ny för varje "startswith NW"
                         IComponentBoard NWcomponent = null;
                         for (int i = separatedCoordinates.Length - 1; i > 0; i--)
                         {
                             if (i == separatedCoordinates.Length - 1)
                             {
-                                NWcomponent = new LeafBoard(separatedCoordinates[i], player); //varför tar den inte emot player?
+                                NWcomponent = new LeafBoard(separatedCoordinates[i], player); 
                             }
                             else
                             {
-                                NWcomponent = new CompositeBoard(NWcomponent); //med leafboardet!!
+                                NWcomponent = new CompositeBoard(NWcomponent, player); //med leafboardet!! - och player?
                             }
                         }
                         return NWcomponent;
@@ -116,9 +114,10 @@ namespace csd_lab3
             else
             {
                 IComponentBoard leafboard = null;
+                //go through all items: "NW, CC, ..." for example
                 foreach (string item in input)
                 {
-                    string player;
+                    string player = "";
 
                     if (x.Contains(item))
                     {
@@ -129,6 +128,7 @@ namespace csd_lab3
                         player = "o";
                     }
 
+                    //skicka in cellen och playern i Leafboard MEN JAG VILL INTE STARTA ETT NYTT FÖR VARJE ITEM
                     leafboard = new LeafBoard(item, player);
                 }
 

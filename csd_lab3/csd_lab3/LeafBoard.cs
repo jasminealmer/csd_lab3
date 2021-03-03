@@ -13,6 +13,8 @@ namespace csd_lab3
         public LeafBoard(string cell, string player)
         {
             MakeMove(cell, player);
+
+            //vill endast setta denna när spelet är "klart" - hur göra detta?
             Winner = DeterminateWinner();
         }
 

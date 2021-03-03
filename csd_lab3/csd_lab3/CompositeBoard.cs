@@ -7,18 +7,25 @@ namespace csd_lab3
     class CompositeBoard : IComponentBoard
     {
         public List<IComponentBoard> children { get; private set; }
+        public string Winner { get; private set; } //hur avgörs vinnaren här?
 
-        public CompositeBoard(IComponentBoard child)
+    public CompositeBoard(IComponentBoard child, string player) // ta in player också?
         {
             children.Add(child);
+            
+            //MakeMove(child, player); eller är detta redan sparat på något sätt i child?
+
+            Winner = DeterminateWinner(); 
         }
 
         public void MakeMove(string cell, string player)
         {
-            //foreach (var child in children)
-            //{
-            //    children.Add = player;
-            //}
+
+        }
+
+        public string DeterminateWinner()
+        {
+            //ska detta vara annorlunda? jag vill göra samma, ska jag lägga det i IComponentBoard då istället?
         }
 
         //kan bestå av leaf boards ELLER composite boards?? En string "NW"?
