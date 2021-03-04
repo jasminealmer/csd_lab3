@@ -10,12 +10,8 @@ namespace csd_lab3
 
             Parse parse = new Parse();
             string[] parsedInput = parse.ParseInput(input);
-            
-            parse.GenerateTree(parsedInput);
 
-            LeafBoard leafboard = new LeafBoard(parsedInput);
-
-            Console.WriteLine(leafboard.Winner);
+            parse.GenerateTree(1);
 
             //input and output
 

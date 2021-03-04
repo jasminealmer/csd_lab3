@@ -8,7 +8,8 @@ namespace csd_lab3
     {
 
         public void MakeMove(string cell, string player);
-        public string DeterminateWinner(); 
+        public string DeterminateWinner();
+        public IComponentBoard Copy();
 
         //Printinfo
         //public void PrintInfo(string info)

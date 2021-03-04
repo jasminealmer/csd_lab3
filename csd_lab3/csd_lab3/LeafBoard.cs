@@ -6,21 +6,43 @@ namespace csd_lab3
 {
     class LeafBoard : IComponentBoard
     {
-
-        public string[] cells = { "NW", "NC", "NE", "CW", "CC", "CE", "SW", "SC", "SE" };
+        public List<string> cells { get; set; }
+       
         public string Winner { get; private set; }
 
-        public LeafBoard(string cell, string player)
-        {
-            MakeMove(cell, player);
+        //public LeafBoard(string cell, string player)
+        //{
+        //    MakeMove(cell, player);
 
-            //vill endast setta denna när spelet är "klart" - hur göra detta?
-            Winner = DeterminateWinner();
+        //    //vill endast setta denna när spelet är "klart" - hur göra detta?
+        //    Winner = DeterminateWinner();
+        //}
+
+        public LeafBoard()
+        {
+            cells = new List<string>();
+            cells.Add("NW");
+            cells.Add("NC");
+            cells.Add("NE");
+            cells.Add("CW");
+            cells.Add("CC");
+            cells.Add("CE");
+            cells.Add("SW");
+            cells.Add("SC");
+            cells.Add("SE");
+
+            Winner = "No winner";
+        }
+
+        public IComponentBoard Copy()
+        {
+            IComponentBoard anotherOne = (IComponentBoard)this.MemberwiseClone();
+            return anotherOne;
         }
 
         public void MakeMove(string cell, string player)
         {
-            for (int i = 0; i < cells.Length; i++)
+            for (int i = 0; i < cells.Count; i++)
             {
                 if (cells[i] == cell)
                 {
