@@ -67,76 +67,89 @@ namespace csd_lab3
 
         public void GenerateTree(int depth)
         {
-            if (depth == 0)
+            IComponentBoard component = null;
+            for (int i = depth; i > 0; i--)
             {
-                IComponentBoard leafboard = new LeafBoard();
-                Console.WriteLine("hej");
-
-                    //if (item.StartsWith("NW")) //den kommer komma in här fler gånger, hur ska den veta att ta den redan existerande NW?
-                    //{
-                    //    //nu skapar jag en ny för varje "startswith NW"
-                       
-                    //}
-                    //else if (item.StartsWith("NC"))
-                    //{
-                    //    //samma kod
-                    //}
-
-                    //fortsätt
-
-
+                if (i == depth)
+                {
+                    component = new LeafBoard();
+                }
+                else
+                {
+                    component = new CompositeBoard(component);
+                }
             }
+            Console.WriteLine("klar");
 
-            else if (depth == 1)
-            {
-                LeafBoard leafboard = new LeafBoard();
-                CompositeBoard compositeboard = new CompositeBoard(leafboard);
+            //if (depth == 0)
+            //{
+            //    IComponentBoard leafboard = new LeafBoard();
+            //    Console.WriteLine("hej");
 
-                
-                string result = compositeboard.children.ToString();
-                Console.WriteLine(result);
-                //return compositeboard.children;
+            //        //if (item.StartsWith("NW")) //den kommer komma in här fler gånger, hur ska den veta att ta den redan existerande NW?
+            //        //{
+            //        //    //nu skapar jag en ny för varje "startswith NW"
 
-                //go through all items: "NW, CC, ..." for example
-                //foreach (string item in input)
-                //{
-                //    //string player = "";
+            //        //}
+            //        //else if (item.StartsWith("NC"))
+            //        //{
+            //        //    //samma kod
+            //        //}
 
-                //    //if (x.Contains(item))
-                //    //{
-                //    //    player = "x";
-                //    //}
-                //    //else if (o.Contains(item))
-                //    //{
-                //    //    player = "o";
-                //    //}
+            //        //fortsätt
 
-                //    //skicka in cellen och playern i Leafboard MEN JAG VILL INTE STARTA ETT NYTT FÖR VARJE ITEM
-                //    //leafboard = new LeafBoard();
-                //}
 
-                //IComponentBoard component = null;
+            //}
 
-                //string[] separatedCoordinates = firstLevel.Split(".");
+            //else if (depth == 1)
+            //{
+            //    LeafBoard leafboard = new LeafBoard();
+            //    CompositeBoard compositeboard = new CompositeBoard(leafboard);
 
-                //for (int i = separatedCoordinates.Length - 1; i < 0; i--)
-                //{
-                //    if (i == separatedCoordinates.Length - 1)
-                //    {
-                //        component = new LeafBoard();
-                //    }
-                //    else
-                //    {
-                //        component = new CompositeBoard(component); //med leafboardet!!
-                //    }
-                //}
-                //return component;
 
-            }
-            else
-            {
+            //    string result = compositeboard.children.ToString();
+            //    Console.WriteLine(result);
+            //    //return compositeboard.children;
 
-            }
+            //    //go through all items: "NW, CC, ..." for example
+            //    //foreach (string item in input)
+            //    //{
+            //    //    //string player = "";
+
+            //    //    //if (x.Contains(item))
+            //    //    //{
+            //    //    //    player = "x";
+            //    //    //}
+            //    //    //else if (o.Contains(item))
+            //    //    //{
+            //    //    //    player = "o";
+            //    //    //}
+
+            //    //    //skicka in cellen och playern i Leafboard MEN JAG VILL INTE STARTA ETT NYTT FÖR VARJE ITEM
+            //    //    //leafboard = new LeafBoard();
+            //    //}
+
+            //    //IComponentBoard component = null;
+
+            //    //string[] separatedCoordinates = firstLevel.Split(".");
+
+            //    //for (int i = separatedCoordinates.Length - 1; i < 0; i--)
+            //    //{
+            //    //    if (i == separatedCoordinates.Length - 1)
+            //    //    {
+            //    //        component = new LeafBoard();
+            //    //    }
+            //    //    else
+            //    //    {
+            //    //        component = new CompositeBoard(component); //med leafboardet!!
+            //    //    }
+            //    //}
+            //    //return component;
+
+            //}
+
+
+
 
         }
 
