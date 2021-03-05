@@ -52,6 +52,7 @@ namespace csd_lab3
             {
                 child.MakeMove(playerX, playerO);
                 //måste skala av input för varje nivå?
+                //ändring
             }
         }
 
