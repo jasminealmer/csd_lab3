@@ -11,7 +11,7 @@ namespace csd_lab3
             Parse parse = new Parse();
             string[] parsedInput = parse.ParseInput(input);
 
-            parse.GenerateTree(2);
+            parse.PlayGame(parsedInput);
 
             //input and output
 

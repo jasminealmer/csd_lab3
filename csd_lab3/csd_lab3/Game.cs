@@ -4,7 +4,7 @@ using System.Text;
 
 namespace csd_lab3
 {
-    class Move
+    class Game
     {
         //lists of X and O moves
         //remove if no use

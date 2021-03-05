@@ -4,7 +4,7 @@ using System.Text;
 
 namespace csd_lab3
 {
-    class LeafBoard : IComponentBoard
+    class LeafBoard : IComponent
     {
         public List<string> cells { get; set; }
        
@@ -34,24 +34,41 @@ namespace csd_lab3
             Winner = "No winner";
         }
 
-        public IComponentBoard Copy()
+        public IComponent Copy()
         {
-            IComponentBoard anotherOne = (IComponentBoard)this.MemberwiseClone();
+            IComponent anotherOne = (IComponent)this.MemberwiseClone();
             return anotherOne;
         }
 
-        public void MakeMove(string cell, string player)
+        public void MakeMove(List<string> playerX, List<string> playerO)
         {
+            //måste skala av för varje nivå?
             for (int i = 0; i < cells.Count; i++)
             {
-                if (cells[i] == cell)
+                for (int j = 0; j < playerX.Count; j++)
                 {
-                    cells[i] = player;
+                    if (cells[i] == playerX[j])
+                    {
+                        cells[i] = "x";
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
-                else
+
+                for (int z = 0; z < playerO.Count; z++)
                 {
-                    continue;
+                    if (cells[i] == playerO[z])
+                    {
+                        cells[i] = "o";
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
+
             }
         }
 

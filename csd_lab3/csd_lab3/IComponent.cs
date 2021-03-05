@@ -4,12 +4,12 @@ using System.Text;
 
 namespace csd_lab3
 {
-    interface IComponentBoard
+    interface IComponent
     {
 
-        public void MakeMove(string cell, string player);
+        public void MakeMove(List<string> cell, List<string> player);
         public string DeterminateWinner();
-        public IComponentBoard Copy();
+        public IComponent Copy();
 
         //Printinfo
         //public void PrintInfo(string info)

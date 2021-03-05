@@ -6,6 +6,8 @@ namespace csd_lab3
 {
     class Parse
     {
+        readonly List<string> x = new List<string>();
+        readonly List<string> o = new List<string>();
         public string[] ParseInput(string input)
         {
             string withoutSpaces = RemoveWhiteSpaces(input);
@@ -28,8 +30,26 @@ namespace csd_lab3
             return splittedInput;
         }
 
-        readonly List<string> x = new List<string>();
-        readonly List<string> o = new List<string>();
+        public void PlayGame(string[] moves)
+        {
+            AssignPlayers(moves);
+            int depth = DecideDepth(moves[0]);
+            IComponent tree = GenerateTree(depth);
+            TraverseTree(tree);
+
+        }
+
+        public void TraverseTree(IComponent tree)
+        {
+            if (tree != null)
+
+            {
+                tree.MakeMove(x, o);
+                //TraverseTree(tree.Left);
+                //PreOrder_Rec(root.Right);
+
+            }
+        }
 
         //Assign players of the moves
         public void AssignPlayers(string[] moves)
@@ -65,9 +85,9 @@ namespace csd_lab3
             return depth;
         }
 
-        public void GenerateTree(int depth)
+        public IComponent GenerateTree(int depth)
         {
-            IComponentBoard component = null;
+            IComponent component = null;
             for (int i = depth; i > 0; i--)
             {
                 if (i == depth)
@@ -79,7 +99,7 @@ namespace csd_lab3
                     component = new CompositeBoard(component);
                 }
             }
-            Console.WriteLine("klar");
+            return component;
 
             //if (depth == 0)
             //{

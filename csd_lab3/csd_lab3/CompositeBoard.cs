@@ -4,23 +4,23 @@ using System.Text;
 
 namespace csd_lab3
 {
-    class CompositeBoard : IComponentBoard
+    class CompositeBoard : IComponent
     {
-        public List<IComponentBoard> children { get; private set; }
+        public List<IComponent> children { get; private set; }
         public string Winner { get; private set; } 
 
-        public CompositeBoard(IComponentBoard child) 
+        public CompositeBoard(IComponent child) 
         {
-            IComponentBoard child2 = child.Copy();
-            IComponentBoard child3 = child.Copy();
-            IComponentBoard child4 = child.Copy();
-            IComponentBoard child5 = child.Copy();
-            IComponentBoard child6 = child.Copy();
-            IComponentBoard child7 = child.Copy();
-            IComponentBoard child8 = child.Copy();
-            IComponentBoard child9 = child.Copy();
+            IComponent child2 = child.Copy();
+            IComponent child3 = child.Copy();
+            IComponent child4 = child.Copy();
+            IComponent child5 = child.Copy();
+            IComponent child6 = child.Copy();
+            IComponent child7 = child.Copy();
+            IComponent child8 = child.Copy();
+            IComponent child9 = child.Copy();
 
-            children = new List<IComponentBoard>();
+            children = new List<IComponent>();
             children.Add(child);
             children.Add(child2);
             children.Add(child3);
@@ -36,15 +36,23 @@ namespace csd_lab3
             Winner = "No winner"; 
         }
 
-        public IComponentBoard Copy()
+        public void Execute()
         {
-            IComponentBoard anotherOne = (IComponentBoard)this.MemberwiseClone();
+
+        }
+        public IComponent Copy()
+        {
+            IComponent anotherOne = (IComponent)this.MemberwiseClone();
             return anotherOne;
         }
 
-        public void MakeMove(string cell, string player)
+        public void MakeMove(List<string> playerX, List<string> playerO)
         {
-
+            foreach (IComponent child in children)
+            {
+                child.MakeMove(playerX, playerO);
+                //måste skala av input för varje nivå?
+            }
         }
 
         public string DeterminateWinner()
