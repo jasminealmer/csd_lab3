@@ -10,6 +10,7 @@ namespace csd_lab3
        
         public string Winner { get; private set; }
 
+        public string Id { get; set; }
         //public LeafBoard(string cell, string player)
         //{
         //    MakeMove(cell, player);
@@ -34,42 +35,41 @@ namespace csd_lab3
             Winner = "No winner";
         }
 
+        public List<IComponent> GetChildren()
+        {
+            return null;
+        }
+
+        public void SetId(string id)
+        {
+            Id = id;
+        }
+
         public IComponent Copy()
         {
             IComponent anotherOne = (IComponent)this.MemberwiseClone();
             return anotherOne;
         }
 
-        public void MakeMove(List<string> playerX, List<string> playerO)
+        public void MakeMove(string move)
         {
-            //måste skala av för varje nivå?
+            string[] coordAndPlayer = move.Split('.');
+            string coord = coordAndPlayer[0];
+            string player = coordAndPlayer[1];
+            
             for (int i = 0; i < cells.Count; i++)
             {
-                for (int j = 0; j < playerX.Count; j++)
+                if (cells[i] == coord)
                 {
-                    if (cells[i] == playerX[j])
-                    {
-                        cells[i] = "x";
-                    }
-                    else
-                    {
-                        continue;
-                    }
+                    cells[i] = player;
                 }
-
-                for (int z = 0; z < playerO.Count; z++)
+                else
                 {
-                    if (cells[i] == playerO[z])
-                    {
-                        cells[i] = "o";
-                    }
-                    else
-                    {
-                        continue;
-                    }
+                    continue;
                 }
 
             }
+            Id = DeterminateWinner();
         }
 
         public string DeterminateWinner()
@@ -113,7 +113,7 @@ namespace csd_lab3
             }
             else
             {
-                return null;
+                return "No winner";
             }
 
         }

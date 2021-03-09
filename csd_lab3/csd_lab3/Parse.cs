@@ -6,8 +6,8 @@ namespace csd_lab3
 {
     class Parse
     {
-        readonly List<string> x = new List<string>();
-        readonly List<string> o = new List<string>();
+        //readonly List<string> x = new List<string>();
+        //readonly List<string> o = new List<string>();
         public string[] ParseInput(string input)
         {
             string withoutSpaces = RemoveWhiteSpaces(input);
@@ -32,39 +32,55 @@ namespace csd_lab3
 
         public void PlayGame(string[] moves)
         {
-            AssignPlayers(moves);
             int depth = DecideDepth(moves[0]);
             IComponent tree = GenerateTree(depth);
-            TraverseTree(tree);
+            string[] movesWithPlayer = AssignPlayers(moves);
+            TraverseTree(tree, movesWithPlayer);
 
         }
 
-        public void TraverseTree(IComponent tree)
+        public void TraverseTree(IComponent tree, string[] moves)
         {
-            if (tree != null)
-
+            if (tree != null && tree.GetChildren() != null)
             {
-                tree.MakeMove(x, o);
-                //TraverseTree(tree.Left);
-                //PreOrder_Rec(root.Right);
+                foreach (var child in tree.GetChildren())
+                {
+                    foreach (string move in moves)
+                    {
+                        string firstCoordinate = move.Substring(0, 2);
+
+                        if (firstCoordinate == child.Id)
+                        {
+                            child.MakeMove(move.Substring(3));
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    
+                }
 
             }
+
         }
 
         //Assign players of the moves
-        public void AssignPlayers(string[] moves)
+        public string[] AssignPlayers(string[] moves)
         {
+            
             for (int i = 0; i < moves.Length; i++)
             {
                 if (i % 2 == 0)
                 {
-                    x.Add(moves[i]);
+                    moves[i] = moves[i].Insert(moves[i].Length, ".x");
                 }
                 else
                 {
-                    o.Add(moves[i]);
+                    moves[i] = moves[i].Insert(moves[i].Length, ".o");
                 }
             }
+            return moves;
         }
 
         public int DecideDepth(string firstCoord)
@@ -88,7 +104,7 @@ namespace csd_lab3
         public IComponent GenerateTree(int depth)
         {
             IComponent component = null;
-            for (int i = depth; i > 0; i--)
+            for (int i = depth; i >= 0; i--)
             {
                 if (i == depth)
                 {

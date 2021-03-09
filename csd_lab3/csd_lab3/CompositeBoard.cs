@@ -9,8 +9,12 @@ namespace csd_lab3
         public List<IComponent> children { get; private set; }
         public string Winner { get; private set; } 
 
+        public string Id { get; set; }
+
+
         public CompositeBoard(IComponent child) 
         {
+      
             IComponent child2 = child.Copy();
             IComponent child3 = child.Copy();
             IComponent child4 = child.Copy();
@@ -19,6 +23,16 @@ namespace csd_lab3
             IComponent child7 = child.Copy();
             IComponent child8 = child.Copy();
             IComponent child9 = child.Copy();
+
+            child.SetId("NW");
+            child2.SetId("NC");
+            child3.SetId("NE");
+            child4.SetId("CW");
+            child5.SetId("CC");
+            child6.SetId("CE");
+            child7.SetId("SW");
+            child8.SetId("SC");
+            child9.SetId("SE");
 
             children = new List<IComponent>();
             children.Add(child);
@@ -36,6 +50,14 @@ namespace csd_lab3
             Winner = "No winner"; 
         }
 
+        public List<IComponent> GetChildren()
+        {
+            return children;
+        }
+        public void SetId(string id)
+        {
+            Id = id;
+        }
         public void Execute()
         {
 
@@ -46,14 +68,46 @@ namespace csd_lab3
             return anotherOne;
         }
 
-        public void MakeMove(List<string> playerX, List<string> playerO)
+        public void MakeMove(string move)
         {
             foreach (IComponent child in children)
             {
-                child.MakeMove(playerX, playerO);
+                string firstCoordinate = move.Substring(0, 2);
+
+                if (firstCoordinate == child.Id)
+                {
+                    child.MakeMove(move.Substring(3));
+                }
+                else
+                {
+                    continue;
+                }   
+ 
+            }
+
+            //string newMoveX = "";
+            //string newMoveO = "";
+
+            //foreach (string move in playerX)
+            //{
+            //    //remove first
+            //    newMoveX = move.Substring(3);
+            //}
+            //foreach (string move in playerO)
+            //{
+            //    //remove first
+            //    newMoveO = move.Substring(3);
+            //}
+
+                
+
+                //string tail = playerX.Substring()
+
+                //RemoveCoordinate(playerX, playerO);
+
                 //måste skala av input för varje nivå?
                 //ändring
-            }
+            
         }
 
         public string DeterminateWinner()
