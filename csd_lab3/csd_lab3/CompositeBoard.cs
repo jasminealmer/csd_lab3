@@ -6,77 +6,123 @@ namespace csd_lab3
 {
     class CompositeBoard : IComponent
     {
-        public List<IComponent> children { get; private set; }
+        public List<IComponent> Children { get; set; }
         public string Winner { get; private set; } 
 
         public string Id { get; set; }
 
+        public List<IComponent> Collection { get; set; }
 
-        public CompositeBoard(IComponent child) 
+        public CompositeBoard()
         {
-      
-            IComponent child2 = child.Copy();
-            IComponent child3 = child.Copy();
-            IComponent child4 = child.Copy();
-            IComponent child5 = child.Copy();
-            IComponent child6 = child.Copy();
-            IComponent child7 = child.Copy();
-            IComponent child8 = child.Copy();
-            IComponent child9 = child.Copy();
 
-            child.SetId("NW");
-            child2.SetId("NC");
-            child3.SetId("NE");
-            child4.SetId("CW");
-            child5.SetId("CC");
-            child6.SetId("CE");
-            child7.SetId("SW");
-            child8.SetId("SC");
-            child9.SetId("SE");
-
-            children = new List<IComponent>();
-            children.Add(child);
-            children.Add(child2);
-            children.Add(child3);
-            children.Add(child4);
-            children.Add(child5);
-            children.Add(child6);
-            children.Add(child7);
-            children.Add(child8);
-            children.Add(child9);
-
-            //MakeMove(child, player); eller är detta redan sparat på något sätt i child?
-
-            Winner = "No winner"; 
         }
 
-        public List<IComponent> GetChildren()
+        public CompositeBoard(List<IComponent> children, int last)
         {
-            return children;
+            Children = children;
+            //sista component
         }
-        public void SetId(string id)
+
+        public CompositeBoard(List<IComponent> children) 
         {
+            Children = children;
+            Winner = "No winner";
+            Id = "NW";
+
+            Collection = new List<IComponent>();
+            Collection.Add(this);
+            Collection.Add(Copy("NC"));
+            Collection.Add(Copy("NE"));
+            Collection.Add(Copy("CW"));
+            Collection.Add(Copy("CC"));
+            Collection.Add(Copy("CE"));
+            Collection.Add(Copy("SW"));
+            Collection.Add(Copy("SC"));
+            Collection.Add(Copy("SE"));
+
+             
+        }
+
+        public CompositeBoard(List<IComponent> children, string id)
+        {
+            Children = children;
             Id = id;
         }
-        public void Execute()
+        public IComponent GenerateTree(int depth)
         {
+            IComponent component = null;
+            int stop = 0;
+            for (int i = depth; i >= 0; i--)
+            {
+                if (i == depth)
+                {
+                    component = new LeafBoard();
+                }
+                else if (i == 0)
+                {
+                    component = new CompositeBoard(component.Collection, stop);
+                }
+                else
+                {
+                    component = new CompositeBoard(component.Collection);
+                }
+            }
+            return component;
 
         }
-        public IComponent Copy()
+        public void FillTree(IComponent tree, string[] moves)
         {
-            IComponent anotherOne = (IComponent)this.MemberwiseClone();
-            return anotherOne;
+            if (tree != null)
+            {
+                foreach (var child in tree.Children)
+                {
+                    foreach (string move in moves)
+                    {
+                        string firstCoordinate = move.Substring(0, 2);
+
+                        if (firstCoordinate == child.Id)
+                        {
+                            child.MakeMove(move.Substring(3));
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+
+                }
+
+            }
+
+            Console.WriteLine(tree);
+            //klar med fill the tree, nästa är att determinate winner
+
+        }
+
+       
+        public IComponent Copy(string id)
+        {
+            IComponent leaf = new LeafBoard();
+            IComponent composite = new CompositeBoard(leaf.Collection, id);
+            return composite;
         }
 
         public void MakeMove(string move)
         {
-            foreach (IComponent child in children)
+            bool found = false;
+            foreach (IComponent child in Children)
             {
+                if (found)
+                {
+                    break;
+                }
                 string firstCoordinate = move.Substring(0, 2);
 
                 if (firstCoordinate == child.Id)
                 {
                     child.MakeMove(move.Substring(3));
+                    found = true;
                 }
                 else
                 {
@@ -85,6 +131,7 @@ namespace csd_lab3
  
             }
 
+             
             //string newMoveX = "";
             //string newMoveO = "";
 

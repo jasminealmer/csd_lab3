@@ -9,9 +9,11 @@ namespace csd_lab3
             string input = args[0];
 
             Parse parse = new Parse();
+            Game game = new Game();
+
             string[] parsedInput = parse.ParseInput(input);
 
-            parse.PlayGame(parsedInput);
+            game.PlayGame(parsedInput);
 
             //input and output
 
