@@ -9,49 +9,26 @@ namespace csd_lab3
     {
         readonly CompositeBoard composite = new CompositeBoard();
         readonly LeafBoard leaf = new LeafBoard();
-        public List<string> PlayGame(string[] moves)
+
+        List<string> winningLargeCells = new List<string>();
+        List<string> winningSmallCells = new List<string>();
+        List<string> winsOfPlayers = new List<string>();
+        public Dictionary<string, List<string>> PlayGame(string[] moves)
         {
+            Dictionary<string, List<string>> results = new Dictionary<string, List<string>>();
             int depth = DecideDepth(moves[0]);
             IComponent tree = composite.GenerateTree(depth);
             string[] movesWithPlayer = AssignPlayers(moves);
-            List<string> result = new List<string>();
 
             if (depth == 0)
             {
                 leaf.FillTree(tree, movesWithPlayer);
                 tree.DeterminateWinner();
-                //Console.WriteLine(tree.Id);
-
-                if (tree.Id == "x")
-                {
-                    foreach (string move in movesWithPlayer)
-                    {
-                        if (move.EndsWith("x"))
-                        {
-                            result.Add(move.Remove(3));
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                }
-
-                else if (tree.Id == "o")
-                {
-                    foreach (string move in movesWithPlayer)
-                    {
-                        if (move.EndsWith("o"))
-                        {
-                            result.Add(move.Remove(3));
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                }
-                return result;
+                winningLargeCells = leaf.GetWinningLargeCells(tree, movesWithPlayer);
+                winningSmallCells = winningLargeCells;
+                results.Add("Winning Large Cells: ", winningLargeCells);
+                results.Add("Winning Small Cells: ", winningSmallCells);
+                return results;
             }
             
 
@@ -59,19 +36,29 @@ namespace csd_lab3
             {
                 composite.FillTree(tree, movesWithPlayer);
                 tree.DeterminateWinner();
-
-                foreach (IComponent child in tree.Children)
-                {
-                    if (tree.Winner == child.Winner)
-                    {
-                        result.Add(child.Id);
-                    }
-
-                }
-                return result;
-               
+                winningLargeCells = composite.GetWinningLargeCells(tree);
+                //winningLargeCells = OrderResult(winningLargeCells, movesWithPlayer);
+                winningSmallCells = composite.GetWinningSmallCells(tree);
+                results.Add("Winning Large Cells: ", winningLargeCells);
+                results.Add("Winning Small Cells: ", winningSmallCells);
+                return results;
             }
 
+        }
+
+        //hur ska jag lägga in result i korrekt order på bästa sätt? hur ska jag kolla vilket bräde som avslutas "först"?
+        private List<string> OrderResult(List<string> listToBeOrdered, string[] moves)
+        {
+            List<string> orderedList = new List<string>();
+
+            foreach (string move in moves)
+            {
+                if (listToBeOrdered.Contains(move.Substring(0, 2)))
+                {
+                    orderedList.Add(move.Substring(0, 2));
+                }
+            }
+            return orderedList;
         }
         private int DecideDepth(string firstCoord)
         {
@@ -108,7 +95,6 @@ namespace csd_lab3
             }
             return moves;
         }
-
         
     }
 }

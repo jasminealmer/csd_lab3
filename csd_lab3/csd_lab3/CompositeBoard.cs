@@ -38,9 +38,7 @@ namespace csd_lab3
             Collection.Add(Copy("CE"));
             Collection.Add(Copy("SW"));
             Collection.Add(Copy("SC"));
-            Collection.Add(Copy("SE"));
-
-             
+            Collection.Add(Copy("SE"));         
         }
 
         public CompositeBoard(List<IComponent> children, string id)
@@ -126,30 +124,6 @@ namespace csd_lab3
                 }   
  
             }
-
-             
-            //string newMoveX = "";
-            //string newMoveO = "";
-
-            //foreach (string move in playerX)
-            //{
-            //    //remove first
-            //    newMoveX = move.Substring(3);
-            //}
-            //foreach (string move in playerO)
-            //{
-            //    //remove first
-            //    newMoveO = move.Substring(3);
-            //}
-
-                
-
-                //string tail = playerX.Substring()
-
-                //RemoveCoordinate(playerX, playerO);
-
-                //måste skala av input för varje nivå?
-                //ändring
             
         }
 
@@ -203,44 +177,35 @@ namespace csd_lab3
             }
 
         }
+        public List<string> GetWinningLargeCells(IComponent tree)
+        {
+            List<string> result = new List<string>();
 
-        //kan bestå av leaf boards ELLER composite boards?? En string "NW"?
+            foreach (IComponent child in tree.Children)
+            {
+                if (tree.Winner == child.Winner)
+                {
+                    result.Add(child.Id);
+                }
+            }
 
+            return result;
+        }
 
-        //private List<IComponentBoard> boards;
+        List<string> winningCoord = new List<string>();
+        public List<string> GetWinningSmallCells(IComponent tree)
+        {
+            foreach (IComponent child in tree.Children)
+            {
+                if (tree.Winner == child.Winner)
+                {
+                    winningCoord.Add("." + child.Id);
+                    child.GetWinningSmallCells(child.Children);
+                }
+            }
+            return winningCoord;
+        }
 
-        //public CompositeBoard(List<IComponentBoard> boards)
-        //{
-        //    this.boards = boards;
-        //}
-
-        //public void PlayGame()
-        //{
-        //    //don't know what to return yet
-
-        //    string result;
-
-        //    foreach (IComponentBoard board in boards)
-        //    {
-        //        //ASK FOR THE X OR O WINNER from the sub-composite (or leaf)
-        //        //check if all subcomposites has a winner and what winner
-        //        //calculate if it is a row, then WINNER for either X or O
-
-        //        result += board.PlayGame(); //recurse, method calls itself
-        //        return result;
-        //    }
-        //}
-
-
-
-
-
-        //game board. methods that belongs to game
-
-        //method 1: recurse through pattern composite to play boards
-        //method 2: sends in and saves moves to Player (x/o), remember to terminate if wrong move etc
-        //method 3: calculate win/loose for each game (här eller i Player?)
-
-        //andra methods: skicka ut output enl. dokument
+       
     }
 }

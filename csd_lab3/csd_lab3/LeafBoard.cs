@@ -7,7 +7,7 @@ namespace csd_lab3
     class LeafBoard : IComponent
     {
         public List<string> Cells { get; set; }
-       
+
         public string Winner { get; set; }
 
         public string Id { get; set; }
@@ -47,7 +47,7 @@ namespace csd_lab3
             Collection.Add(Copy("SW"));
             Collection.Add(Copy("SC"));
             Collection.Add(Copy("SE"));
-            
+
         }
 
         public LeafBoard(string id)
@@ -65,10 +65,97 @@ namespace csd_lab3
             Id = id;
         }
 
-        //public void SetId(string id)
-        //{
-        //    Id = id;
-        //}
+        public List<string> GetWinningLargeCells(IComponent tree, string[] movesWithPlayer)
+        {
+            List<string> result = new List<string>();
+
+            if (tree.Id == "x")
+            {
+                foreach (string move in movesWithPlayer)
+                {
+                    if (move.EndsWith("x"))
+                    {
+                        result.Add(move.Remove(3));
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+            }
+
+            else if (tree.Id == "o")
+            {
+                foreach (string move in movesWithPlayer)
+                {
+                    if (move.EndsWith("o"))
+                    {
+                        result.Add(move.Remove(3));
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+            }
+            return result;
+        }
+
+        public List<string> GetWinningSmallCells(IComponent tree)
+        {
+            List<string> lastCoord = new List<string>();
+
+            for (int i = 0; i < Cells.Count; i++)
+            {
+                if (Cells[i] == "x" || Cells[i] == "o")
+                {
+                    int indexPos = Cells.IndexOf(Cells[i]);
+
+                    if (indexPos == 0)
+                    {
+                        lastCoord.Add("NW");
+                    }
+                    if (indexPos == 1)
+                    {
+                        lastCoord.Add("NC");
+                    }
+                    if (indexPos == 2)
+                    {
+                        lastCoord.Add("NE");
+                    }
+                    if (indexPos == 3)
+                    {
+                        lastCoord.Add("CW");
+                    }
+                    if (indexPos == 4)
+                    {
+                        lastCoord.Add("CC");
+                    }
+                    if (indexPos == 5)
+                    {
+                        lastCoord.Add("CE");
+                    }
+                    if (indexPos == 6)
+                    {
+                        lastCoord.Add("SW");
+                    }
+                    if (indexPos == 7)
+                    {
+                        lastCoord.Add("SC");
+                    }
+                    if (indexPos == 8)
+                    {
+                        lastCoord.Add("SE");
+                    }
+
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            return lastCoord;
+        }
 
         public void FillTree(IComponent tree, string[] moves)
         {

@@ -15,6 +15,8 @@ namespace csd_lab3
         public void DeterminateWinner();
         public IComponent Copy(string id);
 
+        public List<string> GetWinningSmallCells(IComponent tree);
+
         //public List<IComponent> GetChildren();
 
         //public void SetId(string id);
