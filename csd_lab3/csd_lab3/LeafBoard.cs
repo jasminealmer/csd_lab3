@@ -8,7 +8,7 @@ namespace csd_lab3
     {
         public List<string> Cells { get; set; }
        
-        public string Winner { get; private set; }
+        public string Winner { get; set; }
 
         public string Id { get; set; }
 
@@ -36,7 +36,6 @@ namespace csd_lab3
             Cells.Add("SC");
             Cells.Add("SE");
             Id = "NW";
-            Winner = "No winner.";
 
             Collection = new List<IComponent>();
             Collection.Add(this);
@@ -64,7 +63,6 @@ namespace csd_lab3
             Cells.Add("SC");
             Cells.Add("SE");
             Id = id;
-            Winner = "No winner";
         }
 
         //public void SetId(string id)
@@ -151,7 +149,10 @@ namespace csd_lab3
             {
                 Winner = Cells[6];
             }
-            Id = Winner;
+            else
+            {
+                Winner = "No winner";
+            }
 
         }
 

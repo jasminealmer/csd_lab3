@@ -1,34 +1,77 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace csd_lab3
 {
     public class Game
     {
-        //public int checkDepth = 0;
         readonly CompositeBoard composite = new CompositeBoard();
         readonly LeafBoard leaf = new LeafBoard();
-        public void PlayGame(string[] moves)
+        public List<string> PlayGame(string[] moves)
         {
             int depth = DecideDepth(moves[0]);
-            //checkDepth = depth;
             IComponent tree = composite.GenerateTree(depth);
             string[] movesWithPlayer = AssignPlayers(moves);
+            List<string> result = new List<string>();
 
             if (depth == 0)
             {
                 leaf.FillTree(tree, movesWithPlayer);
                 tree.DeterminateWinner();
-                //Console.WriteLine(leaf.Winner);
+                //Console.WriteLine(tree.Id);
+
+                if (tree.Id == "x")
+                {
+                    foreach (string move in movesWithPlayer)
+                    {
+                        if (move.EndsWith("x"))
+                        {
+                            result.Add(move.Remove(3));
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                }
+
+                else if (tree.Id == "o")
+                {
+                    foreach (string move in movesWithPlayer)
+                    {
+                        if (move.EndsWith("o"))
+                        {
+                            result.Add(move.Remove(3));
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                }
+                return result;
             }
+            
+
             else
             {
                 composite.FillTree(tree, movesWithPlayer);
                 tree.DeterminateWinner();
-                //Console.WriteLine(tree.Id);
+
+                foreach (IComponent child in tree.Children)
+                {
+                    if (tree.Winner == child.Winner)
+                    {
+                        result.Add(child.Id);
+                    }
+
+                }
+                return result;
+               
             }
-            //return tree;
+
         }
         private int DecideDepth(string firstCoord)
         {

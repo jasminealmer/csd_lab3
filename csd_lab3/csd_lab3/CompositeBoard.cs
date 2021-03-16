@@ -7,7 +7,7 @@ namespace csd_lab3
     class CompositeBoard : IComponent
     {
         public List<IComponent> Children { get; set; }
-        public string Winner { get; private set; } 
+        public string Winner { get; set; } 
 
         public string Id { get; set; }
 
@@ -27,7 +27,6 @@ namespace csd_lab3
         public CompositeBoard(List<IComponent> children) 
         {
             Children = children;
-            Winner = "No winner";
             Id = "NW";
 
             Collection = new List<IComponent>();
@@ -162,43 +161,47 @@ namespace csd_lab3
             }
 
             //check winner horinzontally
-            if (Children[0].Id == Children[1].Id && Children[1].Id == Children[2].Id)
+            if (Children[0].Winner == Children[1].Winner && Children[1].Winner == Children[2].Winner)
             {
-                Winner = Children[0].Id;
+                Winner = Children[0].Winner;
             }
-            else if (Children[3].Id == Children[4].Id && Children[4].Id == Children[5].Id)
+            else if (Children[3].Winner == Children[4].Winner && Children[4].Winner == Children[5].Winner)
             {
-                Winner = Children[3].Id;
+                Winner = Children[3].Winner;
             }
-            else if (Children[6].Id == Children[7].Id && Children[7].Id == Children[8].Id)
+            else if (Children[6].Winner == Children[7].Winner && Children[7].Winner == Children[8].Winner)
             {
-                Winner = Children[6].Id;
+                Winner = Children[6].Winner;
             }
 
             //check winner vertically
-            else if (Children[0].Id == Children[3].Id && Children[3].Id == Children[6].Id)
+            else if (Children[0].Winner == Children[3].Winner && Children[3].Winner == Children[6].Winner)
             {
-                Winner = Children[0].Id;
+                Winner = Children[0].Winner;
             }
-            else if (Children[1].Id == Children[4].Id && Children[4].Id == Children[7].Id)
+            else if (Children[1].Winner == Children[4].Winner && Children[4].Winner == Children[7].Winner)
             {
-                Winner = Children[1].Id;
+                Winner = Children[1].Winner;
             }
-            else if (Children[2].Id == Children[5].Id && Children[5].Id == Children[8].Id)
+            else if (Children[2].Winner == Children[5].Winner && Children[5].Winner == Children[8].Winner)
             {
-                Winner = Children[2].Id;
+                Winner = Children[2].Winner;
             }
 
             //check winner diagonally
-            else if (Children[0].Id == Children[4].Id && Children[4].Id == Children[8].Id)
+            else if (Children[0].Winner == Children[4].Winner && Children[4].Winner == Children[8].Winner)
             {
-                Winner = Children[0].Id;
+                Winner = Children[0].Winner;
             }
-            else if (Children[6].Id == Children[4].Id && Children[4].Id == Children[2].Id)
+            else if (Children[6].Winner == Children[4].Winner && Children[4].Winner == Children[2].Winner)
             {
-                Winner = Children[6].Id;
+                Winner = Children[6].Winner;
             }
-            Id = Winner;
+            else
+            {
+                Winner = "No winner";
+            }
+
         }
 
         //kan bestå av leaf boards ELLER composite boards?? En string "NW"?

@@ -7,6 +7,7 @@ namespace csd_lab3
     interface IComponent
     {
         public string Id { get; set; }
+        public string Winner { get; set; }
 
         public List<IComponent> Collection { get; set; }
         public List<IComponent> Children { get; set; }
