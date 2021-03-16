@@ -112,49 +112,46 @@ namespace csd_lab3
             //Id = DeterminateWinner();
         }
 
-        public string DeterminateWinner()
+        public void DeterminateWinner()
         {
             //check winner horinzontally
             if (Cells[0] == Cells[1] && Cells[1] == Cells[2] && Cells[0] != null)
             {
-                return Cells[0];
+                Winner = Cells[0];
             }
             else if (Cells[3] == Cells[4] && Cells[4] == Cells[5] && Cells[3] != null)
             {
-                return Cells[3];
+                Winner = Cells[3];
             }
             else if (Cells[6] == Cells[7] && Cells[7] == Cells[8] && Cells[6] != null)
             {
-                return Cells[6];
+                Winner = Cells[6];
             }
 
             //check winner vertically
             else if (Cells[0] == Cells[3] && Cells[3] == Cells[6] && Cells[0] != null)
             {
-                return Cells[0];
+                Winner = Cells[0];
             }
             else if (Cells[1] == Cells[4] && Cells[4] == Cells[7] && Cells[1] != null)
             {
-                return Cells[1];
+                Winner = Cells[1];
             }
             else if (Cells[2] == Cells[5] && Cells[5] == Cells[8] && Cells[2] != null)
             {
-                return Cells[2];
+                Winner = Cells[2];
             }
 
             //check winner diagonally
             else if (Cells[0] == Cells[4] && Cells[4] == Cells[8] && Cells[0] != null)
             {
-                return Cells[0];
+                Winner = Cells[0];
             }
             else if (Cells[6] == Cells[4] && Cells[4] == Cells[2] && Cells[6] != null)
             {
-                return Cells[6];
+                Winner = Cells[6];
             }
-            else
-            {
-                return "No winner";
-            }
+            Id = Winner;
 
         }
 

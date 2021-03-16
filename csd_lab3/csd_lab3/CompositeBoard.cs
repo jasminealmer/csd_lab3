@@ -95,9 +95,6 @@ namespace csd_lab3
 
             }
 
-            Console.WriteLine(tree);
-            //klar med fill the tree, nästa är att determinate winner
-
         }
 
        
@@ -157,11 +154,51 @@ namespace csd_lab3
             
         }
 
-        public string DeterminateWinner()
+        public void DeterminateWinner()
         {
-            //ska detta vara annorlunda? jag vill göra samma, ska jag lägga det i IComponentBoard då istället?
-            string error = "hello";
-            return error;
+            foreach (IComponent child in Children)
+            {
+                child.DeterminateWinner();
+            }
+
+            //check winner horinzontally
+            if (Children[0].Id == Children[1].Id && Children[1].Id == Children[2].Id)
+            {
+                Winner = Children[0].Id;
+            }
+            else if (Children[3].Id == Children[4].Id && Children[4].Id == Children[5].Id)
+            {
+                Winner = Children[3].Id;
+            }
+            else if (Children[6].Id == Children[7].Id && Children[7].Id == Children[8].Id)
+            {
+                Winner = Children[6].Id;
+            }
+
+            //check winner vertically
+            else if (Children[0].Id == Children[3].Id && Children[3].Id == Children[6].Id)
+            {
+                Winner = Children[0].Id;
+            }
+            else if (Children[1].Id == Children[4].Id && Children[4].Id == Children[7].Id)
+            {
+                Winner = Children[1].Id;
+            }
+            else if (Children[2].Id == Children[5].Id && Children[5].Id == Children[8].Id)
+            {
+                Winner = Children[2].Id;
+            }
+
+            //check winner diagonally
+            else if (Children[0].Id == Children[4].Id && Children[4].Id == Children[8].Id)
+            {
+                Winner = Children[0].Id;
+            }
+            else if (Children[6].Id == Children[4].Id && Children[4].Id == Children[2].Id)
+            {
+                Winner = Children[6].Id;
+            }
+            Id = Winner;
         }
 
         //kan bestå av leaf boards ELLER composite boards?? En string "NW"?

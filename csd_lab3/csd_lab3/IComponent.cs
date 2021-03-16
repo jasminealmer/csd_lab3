@@ -11,7 +11,7 @@ namespace csd_lab3
         public List<IComponent> Collection { get; set; }
         public List<IComponent> Children { get; set; }
         public void MakeMove(string move);
-        public string DeterminateWinner();
+        public void DeterminateWinner();
         public IComponent Copy(string id);
 
         //public List<IComponent> GetChildren();

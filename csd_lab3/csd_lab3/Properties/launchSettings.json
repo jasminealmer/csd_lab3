@@ -2,7 +2,7 @@
   "profiles": {
     "csd_lab3": {
       "commandName": "Project",
-      "commandLineArgs": "\"NW.CC.SE, CW.CC.CC, CC.SE.CC, CE.SW.CC, SE.CC.CC\""
+      "commandLineArgs": "\"NW.CC , NC . CC ,NW . NW , NE . CC ,NW . SE , CE . CC ,CW . CC , SE . CC ,CW . NW , CC . CC ,CW . SE , CC . NW ,CC . SE , CE . NW ,SW . CC , CE . SE ,SW . NW , SE . SE ,SW . SE\""
     }
   }
 }

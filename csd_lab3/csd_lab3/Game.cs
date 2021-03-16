@@ -6,25 +6,29 @@ namespace csd_lab3
 {
     public class Game
     {
-        public int checkDepth = 0;
+        //public int checkDepth = 0;
         readonly CompositeBoard composite = new CompositeBoard();
         readonly LeafBoard leaf = new LeafBoard();
         public void PlayGame(string[] moves)
         {
             int depth = DecideDepth(moves[0]);
-            checkDepth = depth;
+            //checkDepth = depth;
             IComponent tree = composite.GenerateTree(depth);
             string[] movesWithPlayer = AssignPlayers(moves);
 
             if (depth == 0)
             {
                 leaf.FillTree(tree, movesWithPlayer);
+                tree.DeterminateWinner();
+                //Console.WriteLine(leaf.Winner);
             }
             else
             {
                 composite.FillTree(tree, movesWithPlayer);
+                tree.DeterminateWinner();
+                //Console.WriteLine(tree.Id);
             }
-
+            //return tree;
         }
         private int DecideDepth(string firstCoord)
         {
