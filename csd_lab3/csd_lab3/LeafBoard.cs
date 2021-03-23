@@ -194,54 +194,65 @@ namespace csd_lab3
                 }
 
             }
-            //Id = DeterminateWinner();
         }
 
         public void DeterminateWinner()
         {
-            //check winner horinzontally
-            if (Cells[0] == Cells[1] && Cells[1] == Cells[2] && Cells[0] != null)
-            {
-                Winner = Cells[0];
-            }
-            else if (Cells[3] == Cells[4] && Cells[4] == Cells[5] && Cells[3] != null)
-            {
-                Winner = Cells[3];
-            }
-            else if (Cells[6] == Cells[7] && Cells[7] == Cells[8] && Cells[6] != null)
-            {
-                Winner = Cells[6];
-            }
+            CheckWinnerHorizontally();
+            CheckWinnerVertically();
+            CheckWinnerDiagonally();
 
-            //check winner vertically
-            else if (Cells[0] == Cells[3] && Cells[3] == Cells[6] && Cells[0] != null)
-            {
-                Winner = Cells[0];
-            }
-            else if (Cells[1] == Cells[4] && Cells[4] == Cells[7] && Cells[1] != null)
-            {
-                Winner = Cells[1];
-            }
-            else if (Cells[2] == Cells[5] && Cells[5] == Cells[8] && Cells[2] != null)
-            {
-                Winner = Cells[2];
-            }
-
-            //check winner diagonally
-            else if (Cells[0] == Cells[4] && Cells[4] == Cells[8] && Cells[0] != null)
-            {
-                Winner = Cells[0];
-            }
-            else if (Cells[6] == Cells[4] && Cells[4] == Cells[2] && Cells[6] != null)
-            {
-                Winner = Cells[6];
-            }
-            else
+            if (Winner == null)
             {
                 Winner = "No winner";
             }
 
         }
+
+        private void CheckWinnerHorizontally()
+        {
+            if (Cells[0] == Cells[1] && Cells[1] == Cells[2])
+            {
+                Winner = Cells[0];
+            }
+            else if (Cells[3] == Cells[4] && Cells[4] == Cells[5])
+            {
+                Winner = Cells[3];
+            }
+            else if (Cells[6] == Cells[7] && Cells[7] == Cells[8])
+            {
+                Winner = Cells[6];
+            }
+        }
+
+        private void CheckWinnerVertically()
+        {
+            if (Cells[0] == Cells[3] && Cells[3] == Cells[6])
+            {
+                Winner = Cells[0];
+            }
+            else if (Cells[1] == Cells[4] && Cells[4] == Cells[7])
+            {
+                Winner = Cells[1];
+            }
+            else if (Cells[2] == Cells[5] && Cells[5] == Cells[8])
+            {
+                Winner = Cells[2];
+            }
+        }
+
+        private void CheckWinnerDiagonally()
+        {
+            if (Cells[0] == Cells[4] && Cells[4] == Cells[8])
+            {
+                Winner = Cells[0];
+            }
+            else if (Cells[6] == Cells[4] && Cells[4] == Cells[2])
+            {
+                Winner = Cells[6];
+            }
+        }
+
 
 
     }

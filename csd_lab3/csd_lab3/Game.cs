@@ -36,7 +36,7 @@ namespace csd_lab3
             {
                 composite.FillTree(tree, movesWithPlayer);
                 tree.DeterminateWinner();
-                winningLargeCells = composite.GetWinningLargeCells(tree);
+                winningLargeCells = composite.GetWinningLargeCells(tree, movesWithPlayer);
                 //winningLargeCells = OrderResult(winningLargeCells, movesWithPlayer);
                 winningSmallCells = composite.GetWinningSmallCells(tree);
                 results.Add("Winning Large Cells: ", winningLargeCells);

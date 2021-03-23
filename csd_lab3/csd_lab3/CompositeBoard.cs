@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace csd_lab3
 {
@@ -93,7 +94,6 @@ namespace csd_lab3
             }
 
         }
-
        
         public IComponent Copy(string id)
         {
@@ -134,7 +134,19 @@ namespace csd_lab3
                 child.DeterminateWinner();
             }
 
-            //check winner horinzontally
+            CheckWinnerHorizontally();
+            CheckWinnerVertically();
+            CheckWinnerDiagonally();
+
+            if (Winner == null)
+            {
+                Winner = "No winner";
+            }
+
+        }
+
+        private void CheckWinnerHorizontally()
+        {
             if (Children[0].Winner == Children[1].Winner && Children[1].Winner == Children[2].Winner)
             {
                 Winner = Children[0].Winner;
@@ -147,9 +159,11 @@ namespace csd_lab3
             {
                 Winner = Children[6].Winner;
             }
+        }
 
-            //check winner vertically
-            else if (Children[0].Winner == Children[3].Winner && Children[3].Winner == Children[6].Winner)
+        private void CheckWinnerVertically()
+        {
+            if (Children[0].Winner == Children[3].Winner && Children[3].Winner == Children[6].Winner)
             {
                 Winner = Children[0].Winner;
             }
@@ -162,8 +176,11 @@ namespace csd_lab3
                 Winner = Children[2].Winner;
             }
 
-            //check winner diagonally
-            else if (Children[0].Winner == Children[4].Winner && Children[4].Winner == Children[8].Winner)
+        }
+
+        private void CheckWinnerDiagonally()
+        {
+            if (Children[0].Winner == Children[4].Winner && Children[4].Winner == Children[8].Winner)
             {
                 Winner = Children[0].Winner;
             }
@@ -171,13 +188,8 @@ namespace csd_lab3
             {
                 Winner = Children[6].Winner;
             }
-            else
-            {
-                Winner = "No winner";
-            }
-
         }
-        public List<string> GetWinningLargeCells(IComponent tree)
+        public List<string> GetWinningLargeCells(IComponent tree, string[] moves)
         {
             List<string> result = new List<string>();
 
@@ -188,6 +200,9 @@ namespace csd_lab3
                     result.Add(child.Id);
                 }
             }
+
+            //håller på med linq-sats för att sortera listan på moves
+            result.Where(x => moves.Any());
 
             return result;
         }
@@ -200,7 +215,7 @@ namespace csd_lab3
                 if (tree.Winner == child.Winner)
                 {
                     winningCoord.Add("." + child.Id);
-                    child.GetWinningSmallCells(child.Children);
+                    //child.GetWinningSmallCells(child.Children);
                 }
             }
             return winningCoord;
