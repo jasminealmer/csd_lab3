@@ -12,7 +12,7 @@ namespace csd_lab3
 
         public string Id { get; set; }
 
-        public List<IComponent> Collection { get; set; }
+        public List<IComponent> Siblings { get; set; }
 
         public CompositeBoard()
         {
@@ -30,16 +30,16 @@ namespace csd_lab3
             Children = children;
             Id = "NW";
 
-            Collection = new List<IComponent>();
-            Collection.Add(this);
-            Collection.Add(Copy("NC"));
-            Collection.Add(Copy("NE"));
-            Collection.Add(Copy("CW"));
-            Collection.Add(Copy("CC"));
-            Collection.Add(Copy("CE"));
-            Collection.Add(Copy("SW"));
-            Collection.Add(Copy("SC"));
-            Collection.Add(Copy("SE"));         
+            Siblings = new List<IComponent>();
+            Siblings.Add(this);
+            Siblings.Add(Copy("NC"));
+            Siblings.Add(Copy("NE"));
+            Siblings.Add(Copy("CW"));
+            Siblings.Add(Copy("CC"));
+            Siblings.Add(Copy("CE"));
+            Siblings.Add(Copy("SW"));
+            Siblings.Add(Copy("SC"));
+            Siblings.Add(Copy("SE"));         
         }
 
         public CompositeBoard(List<IComponent> children, string id)
@@ -59,11 +59,11 @@ namespace csd_lab3
                 }
                 else if (i == 0)
                 {
-                    component = new CompositeBoard(component.Collection, stop);
+                    component = new CompositeBoard(component.Siblings, stop);
                 }
                 else
                 {
-                    component = new CompositeBoard(component.Collection);
+                    component = new CompositeBoard(component.Siblings);
                 }
             }
             return component;
@@ -98,7 +98,7 @@ namespace csd_lab3
         public IComponent Copy(string id)
         {
             IComponent leaf = new LeafBoard();
-            IComponent composite = new CompositeBoard(leaf.Collection, id);
+            IComponent composite = new CompositeBoard(leaf.Siblings, id);
             return composite;
         }
 
@@ -198,27 +198,36 @@ namespace csd_lab3
                 if (tree.Winner == child.Winner)
                 {
                     result.Add(child.Id);
+                    
                 }
             }
 
-            //håller på med linq-sats för att sortera listan på moves
-            result.Where(x => moves.Any());
-
             return result;
+
         }
 
-        List<string> winningCoord = new List<string>();
-        public List<string> GetWinningSmallCells(IComponent tree)
+
+
+        public List<string> GetWinningSmallCells(IComponent tree, string[] moves)
         {
+            List<string> result = new List<string>();
+
             foreach (IComponent child in tree.Children)
             {
                 if (tree.Winner == child.Winner)
                 {
-                    winningCoord.Add("." + child.Id);
-                    //child.GetWinningSmallCells(child.Children);
+                    result.AddRange(child.GetWinningSmallCells(child, moves));
+                    //winningCoord.AddRange(child.GetWinningSmallCells(child, moves));
+                    //winningCoord.Add(child.Id);
+                    //child.GetWinningSmallCells(child);
+
+                    //if (true) //if it is a leafboard
+                    //{
+                    //    winningCoord.Add(child.GetWinningSmallCells(child)[0]);
+                    //}
                 }
             }
-            return winningCoord;
+            return result;
         }
 
        

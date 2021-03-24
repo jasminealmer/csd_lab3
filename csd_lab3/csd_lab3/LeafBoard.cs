@@ -12,7 +12,7 @@ namespace csd_lab3
 
         public string Id { get; set; }
 
-        public List<IComponent> Collection { get; set; }
+        public List<IComponent> Siblings { get; set; }
         public List<IComponent> Children { get; set; }
 
         //public LeafBoard(string cell, string player)
@@ -37,16 +37,16 @@ namespace csd_lab3
             Cells.Add("SE");
             Id = "NW";
 
-            Collection = new List<IComponent>();
-            Collection.Add(this);
-            Collection.Add(Copy("NC"));
-            Collection.Add(Copy("NE"));
-            Collection.Add(Copy("CW"));
-            Collection.Add(Copy("CC"));
-            Collection.Add(Copy("CE"));
-            Collection.Add(Copy("SW"));
-            Collection.Add(Copy("SC"));
-            Collection.Add(Copy("SE"));
+            Siblings = new List<IComponent>();
+            Siblings.Add(this);
+            Siblings.Add(Copy("NC"));
+            Siblings.Add(Copy("NE"));
+            Siblings.Add(Copy("CW"));
+            Siblings.Add(Copy("CC"));
+            Siblings.Add(Copy("CE"));
+            Siblings.Add(Copy("SW"));
+            Siblings.Add(Copy("SC"));
+            Siblings.Add(Copy("SE"));
 
         }
 
@@ -69,13 +69,13 @@ namespace csd_lab3
         {
             List<string> result = new List<string>();
 
-            if (tree.Id == "x")
+            if (tree.Winner == "x")
             {
                 foreach (string move in movesWithPlayer)
                 {
                     if (move.EndsWith("x"))
                     {
-                        result.Add(move.Remove(3));
+                        result.Add(move.Remove(move.Length - 1));
                     }
                     else
                     {
@@ -84,13 +84,13 @@ namespace csd_lab3
                 }
             }
 
-            else if (tree.Id == "o")
+            else if (tree.Winner == "o")
             {
                 foreach (string move in movesWithPlayer)
                 {
                     if (move.EndsWith("o"))
                     {
-                        result.Add(move.Remove(3));
+                        result.Add(move.Remove(move.Length - 1));
                     }
                     else
                     {
@@ -101,53 +101,60 @@ namespace csd_lab3
             return result;
         }
 
-        public List<string> GetWinningSmallCells(IComponent tree)
+        
+        public List<string> GetWinningSmallCells(IComponent tree, string[] moves)
         {
             List<string> lastCoord = new List<string>();
+            bool taken = false;
 
             for (int i = 0; i < Cells.Count; i++)
             {
-                if (Cells[i] == "x" || Cells[i] == "o")
+                if (taken)
                 {
-                    int indexPos = Cells.IndexOf(Cells[i]);
+                    break;
+                }
+                else if (taken == false && Cells[i] == Winner)
+                {   
+                    int indexPos = i;
 
                     if (indexPos == 0)
                     {
                         lastCoord.Add("NW");
+                        
                     }
-                    if (indexPos == 1)
+                    else if (indexPos == 1)
                     {
                         lastCoord.Add("NC");
                     }
-                    if (indexPos == 2)
+                    else if (indexPos == 2)
                     {
                         lastCoord.Add("NE");
                     }
-                    if (indexPos == 3)
+                    else if (indexPos == 3)
                     {
                         lastCoord.Add("CW");
                     }
-                    if (indexPos == 4)
+                    else if (indexPos == 4)
                     {
                         lastCoord.Add("CC");
                     }
-                    if (indexPos == 5)
+                    else if (indexPos == 5)
                     {
                         lastCoord.Add("CE");
                     }
-                    if (indexPos == 6)
+                    else if (indexPos == 6)
                     {
                         lastCoord.Add("SW");
                     }
-                    if (indexPos == 7)
+                    else if (indexPos == 7)
                     {
                         lastCoord.Add("SC");
                     }
-                    if (indexPos == 8)
+                    else if (indexPos == 8)
                     {
                         lastCoord.Add("SE");
                     }
-
+                    taken = true;
                 }
                 else
                 {
@@ -157,7 +164,7 @@ namespace csd_lab3
             return lastCoord;
         }
 
-        public void FillTree(IComponent tree, string[] moves)
+        public void FillTree(string[] moves)
         {
             foreach (string move in moves)
             {

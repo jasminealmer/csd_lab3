@@ -22,27 +22,21 @@ namespace csd_lab3
 
             if (depth == 0)
             {
-                leaf.FillTree(tree, movesWithPlayer);
-                tree.DeterminateWinner();
-                winningLargeCells = leaf.GetWinningLargeCells(tree, movesWithPlayer);
-                winningSmallCells = winningLargeCells;
-                results.Add("Winning Large Cells: ", winningLargeCells);
-                results.Add("Winning Small Cells: ", winningSmallCells);
-                return results;
-            }
-            
+                leaf.FillTree(movesWithPlayer);
+            }  
 
             else
             {
                 composite.FillTree(tree, movesWithPlayer);
-                tree.DeterminateWinner();
-                winningLargeCells = composite.GetWinningLargeCells(tree, movesWithPlayer);
-                //winningLargeCells = OrderResult(winningLargeCells, movesWithPlayer);
-                winningSmallCells = composite.GetWinningSmallCells(tree);
-                results.Add("Winning Large Cells: ", winningLargeCells);
-                results.Add("Winning Small Cells: ", winningSmallCells);
-                return results;
             }
+
+            tree.DeterminateWinner();
+            tree.GetWinningLargeCells(tree, movesWithPlayer);
+            tree.GetWinningSmallCells(tree, movesWithPlayer);
+
+            results.Add("Winning Large Cells: ", winningLargeCells);
+            results.Add("Winning Small Cells: ", winningSmallCells);
+            return results;
 
         }
 

@@ -9,13 +9,14 @@ namespace csd_lab3
         public string Id { get; set; }
         public string Winner { get; set; }
 
-        public List<IComponent> Collection { get; set; }
+        public List<IComponent> Siblings { get; set; }
         public List<IComponent> Children { get; set; }
         public void MakeMove(string move);
         public void DeterminateWinner();
         public IComponent Copy(string id);
 
-        public List<string> GetWinningSmallCells(IComponent tree);
+        public List<string> GetWinningLargeCells(IComponent tree, string[] moves);
+        public List<string> GetWinningSmallCells(IComponent tree, string[] moves);
 
         //public List<IComponent> GetChildren();
 

@@ -6,8 +6,7 @@ namespace csd_lab3
 {
     class Parse
     {
-        //readonly List<string> x = new List<string>();
-        //readonly List<string> o = new List<string>();
+
         public string[] ParseInput(string input)
         {
             string withoutSpaces = RemoveWhiteSpaces(input);
