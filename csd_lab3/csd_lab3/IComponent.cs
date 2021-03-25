@@ -18,6 +18,8 @@ namespace csd_lab3
         public List<string> GetWinningLargeCells(IComponent tree, string[] moves);
         public List<string> GetWinningSmallCells(IComponent tree, string[] moves);
 
+        public List<string> GetWinsOfPlayers(IComponent tree, string[] moves);
+
         //public List<IComponent> GetChildren();
 
         //public void SetId(string id);

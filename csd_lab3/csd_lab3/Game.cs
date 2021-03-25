@@ -31,28 +31,14 @@ namespace csd_lab3
             }
 
             tree.DeterminateWinner();
-            tree.GetWinningLargeCells(tree, movesWithPlayer);
-            tree.GetWinningSmallCells(tree, movesWithPlayer);
+            winningLargeCells = tree.GetWinningLargeCells(tree, movesWithPlayer);
+            winningSmallCells = tree.GetWinningSmallCells(tree, movesWithPlayer);
+            winsOfPlayers = GetWinsOfPlayers(tree, movesWithPlayer);
 
             results.Add("Winning Large Cells: ", winningLargeCells);
             results.Add("Winning Small Cells: ", winningSmallCells);
             return results;
 
-        }
-
-        //hur ska jag lägga in result i korrekt order på bästa sätt? hur ska jag kolla vilket bräde som avslutas "först"?
-        private List<string> OrderResult(List<string> listToBeOrdered, string[] moves)
-        {
-            List<string> orderedList = new List<string>();
-
-            foreach (string move in moves)
-            {
-                if (listToBeOrdered.Contains(move.Substring(0, 2)))
-                {
-                    orderedList.Add(move.Substring(0, 2));
-                }
-            }
-            return orderedList;
         }
         private int DecideDepth(string firstCoord)
         {
@@ -89,6 +75,56 @@ namespace csd_lab3
             }
             return moves;
         }
-        
+
+        private List<string> GetWinsOfPlayers(IComponent tree, string[] moves)
+        {
+            List<string> result = new List<string>();
+            string winsByX = "0";
+            string winsByO = "0";
+
+            if (tree.Winner == "x")
+            {
+                winsByX = "1";
+            }
+            else if (tree.Winner == "o")
+            {
+                winsByO = "1";
+            }
+
+            if (DecideDepth(moves[0]) == 0)
+            {
+                result.Add(winsByX);
+                result.Add(winsByO);
+            }
+            else
+            {
+                int countX = 0;
+                int countO = 0;
+
+                foreach (IComponent child in tree.Children)
+                {
+                    if (child.Winner == "x")
+                    {
+                        count++;
+                    }
+                    else if (true)
+                    {
+
+                    }
+
+                    winsByX += "." + 
+                }
+            }
+
+            //decide for player X
+            //Winner of BIG GAME
+            //child.Winners = x
+
+
+            //decide for player O
+            //winner of big game
+            //child.winners = o
+        }
+
     }
 }

@@ -104,64 +104,65 @@ namespace csd_lab3
         
         public List<string> GetWinningSmallCells(IComponent tree, string[] moves)
         {
-            List<string> lastCoord = new List<string>();
-            bool taken = false;
+            List<string> result = new List<string>();
 
             for (int i = 0; i < Cells.Count; i++)
             {
-                if (taken)
-                {
-                    break;
-                }
-                else if (taken == false && Cells[i] == Winner)
-                {   
-                    int indexPos = i;
+                int indexPos = i;
 
+                if (Cells[i] == tree.Winner)
+                {
                     if (indexPos == 0)
                     {
-                        lastCoord.Add("NW");
-                        
+                        result.Add("NW");
                     }
                     else if (indexPos == 1)
                     {
-                        lastCoord.Add("NC");
+                        result.Add("NC");
                     }
                     else if (indexPos == 2)
                     {
-                        lastCoord.Add("NE");
+                        result.Add("NE");
                     }
                     else if (indexPos == 3)
                     {
-                        lastCoord.Add("CW");
+                        result.Add("CW");
                     }
                     else if (indexPos == 4)
                     {
-                        lastCoord.Add("CC");
+                        result.Add("CC");
                     }
                     else if (indexPos == 5)
                     {
-                        lastCoord.Add("CE");
+                        result.Add("CE");
                     }
                     else if (indexPos == 6)
                     {
-                        lastCoord.Add("SW");
+                        result.Add("SW");
                     }
                     else if (indexPos == 7)
                     {
-                        lastCoord.Add("SC");
+                        result.Add("SC");
                     }
                     else if (indexPos == 8)
                     {
-                        lastCoord.Add("SE");
+                        result.Add("SE");
                     }
-                    taken = true;
+
                 }
                 else
                 {
                     continue;
                 }
+
             }
-            return lastCoord;
+
+            return result;
+        }
+
+        public List<string> GetWinsOfPlayers(IComponent tree, string[] moves)
+        {
+
         }
 
         public void FillTree(string[] moves)

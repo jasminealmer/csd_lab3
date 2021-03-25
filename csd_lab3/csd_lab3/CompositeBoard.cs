@@ -197,16 +197,12 @@ namespace csd_lab3
             {
                 if (tree.Winner == child.Winner)
                 {
-                    result.Add(child.Id);
-                    
+                    result.Add(child.Id);   
                 }
             }
 
-            return result;
-
+            return OrderResult(result, moves);
         }
-
-
 
         public List<string> GetWinningSmallCells(IComponent tree, string[] moves)
         {
@@ -216,18 +212,85 @@ namespace csd_lab3
             {
                 if (tree.Winner == child.Winner)
                 {
-                    result.AddRange(child.GetWinningSmallCells(child, moves));
-                    //winningCoord.AddRange(child.GetWinningSmallCells(child, moves));
-                    //winningCoord.Add(child.Id);
-                    //child.GetWinningSmallCells(child);
+                    List<string> smallCells = new List<string>();
+                    smallCells = child.GetWinningSmallCells(child, moves);
 
-                    //if (true) //if it is a leafboard
-                    //{
-                    //    winningCoord.Add(child.GetWinningSmallCells(child)[0]);
-                    //}
+                    for (int i = 0; i < smallCells.Count; i++)
+                    {
+                        result.Add(child.Id + "." + smallCells[i]);
+                    }
+
                 }
             }
-            return result;
+            return OrderResult(result, moves);
+           
+        }
+
+        public List<string> GetWinsOfPlayers(IComponent tree, string[] moves)
+        {
+            List<string> result = new List<string>();
+            string winsByX = "0";
+            string winsByO = "0";
+
+            if (tree.Winner == "x")
+            {
+                winsByX = "1";
+            }
+            else if (tree.Winner == "o")
+            {
+                winsByO = "1";
+            }
+
+            foreach (IComponent child in tree.Children)
+            {
+                
+            }
+
+
+            //decide for player X
+            //Winner of BIG GAME
+            //child.Winners = x
+
+
+            //decide for player O
+            //winner of big game
+            //child.winners = o
+        }
+
+        private List<string> OrderResult(List<string> unOrderedResult, string[] moves)
+        {
+            string checkLength = unOrderedResult[0];
+            List<string> orderedResult = new List<string>();
+            string move;
+
+            for (int i = 0; i < moves.Length; i++)
+            {
+                if (checkLength.Length == 2)
+                {
+                    move = moves[i].Substring(0, 2);
+                }
+                else
+                {
+                    move = moves[i].Substring(0, moves[i].Length - 2);
+                }
+
+                if (unOrderedResult != null && unOrderedResult.Contains(move))
+                {
+                    orderedResult.Add(move);
+                    unOrderedResult.Remove(move);
+                }
+                else if (unOrderedResult == null)
+                {
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
+            return orderedResult;
+
         }
 
        
