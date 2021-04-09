@@ -16,18 +16,12 @@ namespace csd_lab3
         public IComponent Copy(string id);
 
         public List<string> GetWinningLargeCells(IComponent tree, string[] moves);
-        public List<string> GetWinningSmallCells(IComponent tree, string[] moves);
+        public List<string> GetWinningSmallCells(IComponent tree);
 
         public List<string> GetWinsOfPlayers(IComponent tree, string[] moves);
 
-        //public List<IComponent> GetChildren();
+        public void FillTree(IComponent tree, string[] moves);
 
-        //public void SetId(string id);
 
-        //Printinfo
-        //public void PrintInfo(string info)
-        //{
-        //    Console.WriteLine(info);
-        //}
     }
 }

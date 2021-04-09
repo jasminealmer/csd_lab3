@@ -8,7 +8,6 @@ namespace csd_lab3
     public class Game
     {
         readonly CompositeBoard composite = new CompositeBoard();
-        readonly LeafBoard leaf = new LeafBoard();
 
         List<string> winningLargeCells = new List<string>();
         List<string> winningSmallCells = new List<string>();
@@ -20,23 +19,38 @@ namespace csd_lab3
             IComponent tree = composite.GenerateTree(depth);
             string[] movesWithPlayer = AssignPlayers(moves);
 
-            if (depth == 0)
-            {
-                leaf.FillTree(movesWithPlayer);
-            }  
-
-            else
-            {
-                composite.FillTree(tree, movesWithPlayer);
-            }
-
+            tree.FillTree(tree, movesWithPlayer);
             tree.DeterminateWinner();
-            winningLargeCells = tree.GetWinningLargeCells(tree, movesWithPlayer);
-            winningSmallCells = tree.GetWinningSmallCells(tree, movesWithPlayer);
-            winsOfPlayers = GetWinsOfPlayers(tree, movesWithPlayer);
+            winningLargeCells = OrderResult(tree.GetWinningLargeCells(tree, movesWithPlayer), movesWithPlayer);
+            winningSmallCells = OrderResult(tree.GetWinningSmallCells(tree), movesWithPlayer);
+
+            winsOfPlayers = tree.GetWinsOfPlayers(tree, movesWithPlayer);
 
             results.Add("Winning Large Cells: ", winningLargeCells);
             results.Add("Winning Small Cells: ", winningSmallCells);
+
+            if (depth == 0 && tree.Winner == "x")
+            {
+                List<string> orderOfWins = new List<string>();
+                orderOfWins.Add("1");
+                orderOfWins.Add("0");
+
+                results.Add("Wins Of Players: ", orderOfWins);
+            }
+            else if (depth == 0 && tree.Winner == "o")
+            {
+                List<string> orderOfWins = new List<string>();
+                orderOfWins.Add("0");
+                orderOfWins.Add("1");
+
+                results.Add("Wins Of Players: ", orderOfWins);
+            }
+
+            else
+            {
+                results.Add("Wins Of Players: ", winsOfPlayers);
+            }
+
             return results;
 
         }
@@ -76,55 +90,44 @@ namespace csd_lab3
             return moves;
         }
 
-        private List<string> GetWinsOfPlayers(IComponent tree, string[] moves)
+        //orders results by moves
+        private List<string> OrderResult(List<string> unOrderedResult, string[] moves)
         {
-            List<string> result = new List<string>();
-            string winsByX = "0";
-            string winsByO = "0";
 
-            if (tree.Winner == "x")
-            {
-                winsByX = "1";
-            }
-            else if (tree.Winner == "o")
-            {
-                winsByO = "1";
-            }
+            string checkLength = unOrderedResult[0];
+            List<string> orderedResult = new List<string>();
+            string move;
 
-            if (DecideDepth(moves[0]) == 0)
+            for (int i = 0; i < moves.Length; i++)
             {
-                result.Add(winsByX);
-                result.Add(winsByO);
-            }
-            else
-            {
-                int countX = 0;
-                int countO = 0;
-
-                foreach (IComponent child in tree.Children)
+                if (checkLength.Length == 2)
                 {
-                    if (child.Winner == "x")
-                    {
-                        count++;
-                    }
-                    else if (true)
-                    {
+                    move = moves[i].Substring(0, 2);
+                }
+                else
+                {
+                    move = moves[i].Substring(0, moves[i].Length - 2);
+                }
 
-                    }
-
-                    winsByX += "." + 
+                if (unOrderedResult != null && unOrderedResult.Contains(move))
+                {
+                    orderedResult.Add(move);
+                    unOrderedResult.Remove(move);
+                }
+                else if (!unOrderedResult.Any())
+                {
+                    break;
+                }
+                else
+                {
+                    continue;
                 }
             }
 
-            //decide for player X
-            //Winner of BIG GAME
-            //child.Winners = x
+            return orderedResult;
 
-
-            //decide for player O
-            //winner of big game
-            //child.winners = o
         }
+
 
     }
 }

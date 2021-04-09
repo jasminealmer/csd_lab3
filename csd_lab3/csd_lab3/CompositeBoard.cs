@@ -193,18 +193,17 @@ namespace csd_lab3
         {
             List<string> result = new List<string>();
 
-            foreach (IComponent child in tree.Children)
+            foreach (string cell in GetWinningSmallCells(tree))
             {
-                if (tree.Winner == child.Winner)
-                {
-                    result.Add(child.Id);   
-                }
+                string largeCell = cell.Substring(0, 2);
+                result.Add(largeCell);
             }
 
-            return OrderResult(result, moves);
+            result = result.Distinct().ToList();
+            return result;
         }
 
-        public List<string> GetWinningSmallCells(IComponent tree, string[] moves)
+        public List<string> GetWinningSmallCells(IComponent tree)
         {
             List<string> result = new List<string>();
 
@@ -213,7 +212,7 @@ namespace csd_lab3
                 if (tree.Winner == child.Winner)
                 {
                     List<string> smallCells = new List<string>();
-                    smallCells = child.GetWinningSmallCells(child, moves);
+                    smallCells.AddRange(child.GetWinningSmallCells(child));
 
                     for (int i = 0; i < smallCells.Count; i++)
                     {
@@ -222,76 +221,61 @@ namespace csd_lab3
 
                 }
             }
-            return OrderResult(result, moves);
+
+            return result;
            
         }
 
         public List<string> GetWinsOfPlayers(IComponent tree, string[] moves)
         {
-            List<string> result = new List<string>();
-            string winsByX = "0";
-            string winsByO = "0";
+            int treeWinner = 1;
+            int treeLooser = 0;
 
-            if (tree.Winner == "x")
-            {
-                winsByX = "1";
-            }
-            else if (tree.Winner == "o")
-            {
-                winsByO = "1";
-            }
+            List<string> layerWins = new List<string>();
+            List<string> result = new List<string>();
 
             foreach (IComponent child in tree.Children)
             {
-                
+                layerWins.AddRange(child.GetWinsOfPlayers(child, moves));
             }
 
+            int countX = 0;
+            int countO = 0;
 
-            //decide for player X
-            //Winner of BIG GAME
-            //child.Winners = x
-
-
-            //decide for player O
-            //winner of big game
-            //child.winners = o
-        }
-
-        private List<string> OrderResult(List<string> unOrderedResult, string[] moves)
-        {
-            string checkLength = unOrderedResult[0];
-            List<string> orderedResult = new List<string>();
-            string move;
-
-            for (int i = 0; i < moves.Length; i++)
+            foreach (string winner in layerWins)
             {
-                if (checkLength.Length == 2)
+                if (winner == "x")
                 {
-                    move = moves[i].Substring(0, 2);
+                    countX++;
                 }
                 else
                 {
-                    move = moves[i].Substring(0, moves[i].Length - 2);
+                    countO++;
                 }
 
-                if (unOrderedResult != null && unOrderedResult.Contains(move))
-                {
-                    orderedResult.Add(move);
-                    unOrderedResult.Remove(move);
-                }
-                else if (unOrderedResult == null)
-                {
-                    break;
-                }
-                else
-                {
-                    continue;
-                }
             }
 
-            return orderedResult;
+            string movesOfX = string.Empty;
+            string movesOfO = string.Empty;
+
+            if (tree.Winner == "x")
+            {
+                movesOfX = treeWinner.ToString() + "." + countX.ToString();
+                movesOfO = treeLooser.ToString() + "." + countO.ToString();
+            }
+            else if (tree.Winner == "o")
+            {
+                movesOfO = treeWinner.ToString() + "." + countO.ToString();
+                movesOfX = treeLooser.ToString() + "." + countX.ToString();
+            }
+
+            result.Add(movesOfX);
+            result.Add(movesOfO);
+            return result;
 
         }
+
+       
 
        
     }
