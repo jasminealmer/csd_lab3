@@ -9,6 +9,7 @@ namespace csd_lab3
     {
         public List<IComponent> Children { get; set; }
         public string Winner { get; set; } 
+        public int Layer { get; set; }
 
         public string Id { get; set; }
 
@@ -19,33 +20,35 @@ namespace csd_lab3
 
         }
 
-        public CompositeBoard(List<IComponent> children, int last)
+        public CompositeBoard(List<IComponent> children, int layer)
         {
             Children = children;
-            //sista component
+            Id = "NW";
+            Layer = layer;
+
+            Siblings = new List<IComponent>();
+            Siblings.Add(this);
+            Siblings.Add(Copy("NC", Layer));
+            Siblings.Add(Copy("NE", Layer));
+            Siblings.Add(Copy("CW", Layer));
+            Siblings.Add(Copy("CC", Layer));
+            Siblings.Add(Copy("CE", Layer));
+            Siblings.Add(Copy("SW", Layer));
+            Siblings.Add(Copy("SC", Layer));
+            Siblings.Add(Copy("SE", Layer));
         }
 
         public CompositeBoard(List<IComponent> children) 
         {
             Children = children;
-            Id = "NW";
-
-            Siblings = new List<IComponent>();
-            Siblings.Add(this);
-            Siblings.Add(Copy("NC"));
-            Siblings.Add(Copy("NE"));
-            Siblings.Add(Copy("CW"));
-            Siblings.Add(Copy("CC"));
-            Siblings.Add(Copy("CE"));
-            Siblings.Add(Copy("SW"));
-            Siblings.Add(Copy("SC"));
-            Siblings.Add(Copy("SE"));         
+            //last component
         }
 
-        public CompositeBoard(List<IComponent> children, string id)
+        public CompositeBoard(List<IComponent> children, string id, int layer)
         {
             Children = children;
             Id = id;
+            Layer = layer;
         }
         public IComponent GenerateTree(int depth)
         {
@@ -55,15 +58,18 @@ namespace csd_lab3
             {
                 if (i == depth)
                 {
-                    component = new LeafBoard();
+                    component = new LeafBoard(i);
+                    //component.Layer = i;
                 }
                 else if (i == 0)
                 {
-                    component = new CompositeBoard(component.Siblings, stop);
+                    component = new CompositeBoard(component.Siblings);
+                    //component.Layer = i;
                 }
                 else
                 {
-                    component = new CompositeBoard(component.Siblings);
+                    component = new CompositeBoard(component.Siblings, i);
+                    //component.Layer = i;
                 }
             }
             return component;
@@ -95,10 +101,10 @@ namespace csd_lab3
 
         }
        
-        public IComponent Copy(string id)
+        public IComponent Copy(string id, int layer)
         {
-            IComponent leaf = new LeafBoard();
-            IComponent composite = new CompositeBoard(leaf.Siblings, id);
+            IComponent leaf = new LeafBoard(layer +1);
+            IComponent composite = new CompositeBoard(leaf.Siblings, id, layer);
             return composite;
         }
 
@@ -226,52 +232,90 @@ namespace csd_lab3
            
         }
 
+        public List<IComponent> GetAllBoards(IComponent tree)
+        {
+            List<IComponent> result = new List<IComponent>();
+
+            result.Add(tree);
+            foreach (IComponent board in tree.Children)
+            {
+                result.AddRange(board.GetAllBoards(board));
+            }
+
+            return result;
+
+        }
+
         public List<string> GetWinsOfPlayers(IComponent tree, string[] moves)
         {
-            int treeWinner = 1;
-            int treeLooser = 0;
 
-            List<string> layerWins = new List<string>();
-            List<string> result = new List<string>();
+
+            var test = tree.Children.Where(x => x.Layer == 1);
+
+            //List<string> allLayers = new List<string>();
+            List<string> winsPerLayer = new List<string>();
+
+
+            //försöker med linq
+            var layer1 = tree.Children.Select(x => x.Winner);
+            //winsPerLayer.AddRange(layer.ToList());
 
             foreach (IComponent child in tree.Children)
             {
-                layerWins.AddRange(child.GetWinsOfPlayers(child, moves));
-            }
-
-            int countX = 0;
-            int countO = 0;
-
-            foreach (string winner in layerWins)
-            {
-                if (winner == "x")
-                {
-                    countX++;
-                }
-                else
-                {
-                    countO++;
-                }
+                var layer = child.GetWinsOfPlayers(child, moves);
+                winsPerLayer.AddRange(layer.ToList());
 
             }
 
-            string movesOfX = string.Empty;
-            string movesOfO = string.Empty;
+            return winsPerLayer;
 
-            if (tree.Winner == "x")
-            {
-                movesOfX = treeWinner.ToString() + "." + countX.ToString();
-                movesOfO = treeLooser.ToString() + "." + countO.ToString();
-            }
-            else if (tree.Winner == "o")
-            {
-                movesOfO = treeWinner.ToString() + "." + countO.ToString();
-                movesOfX = treeLooser.ToString() + "." + countX.ToString();
-            }
 
-            result.Add(movesOfX);
-            result.Add(movesOfO);
-            return result;
+            //int treeWinner = 1;
+            //int treeLooser = 0;
+
+            //List<string> layerWins = new List<string>();
+            //List<string> result = new List<string>();
+            //int countX = 0;
+            //int countO = 0;
+            //string winsOfX = string.Empty;
+            //string winsOfO = string.Empty;
+
+            //foreach (IComponent child in tree.Children)
+            //{
+            //    layerWins.AddRange(child.GetWinsOfPlayers(child, moves));
+
+            //    foreach (string winner in layerWins)
+            //    {
+            //        if (winner == "x")
+            //        {
+            //            countX++;
+            //        }
+            //        else
+            //        {
+            //            countO++;
+            //        }
+
+            //    }
+            //}
+
+            //if (tree.Winner == "x")
+            //{
+            //    winsOfX = treeWinner.ToString() + "." + countX.ToString();
+            //    winsOfO = treeLooser.ToString() + "." + countO.ToString();
+            //    countX = 0;
+            //    countO = 0;
+            //}
+            //else if (tree.Winner == "o")
+            //{
+            //    winsOfO = treeWinner.ToString() + "." + countO.ToString();
+            //    winsOfX = treeLooser.ToString() + "." + countX.ToString();
+            //    countX = 0;
+            //    countO = 0;
+            //}
+
+            //result.Add(winsOfX);
+            //result.Add(winsOfO);
+            //return result;
 
         }
 

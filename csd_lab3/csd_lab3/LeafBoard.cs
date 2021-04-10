@@ -9,15 +9,14 @@ namespace csd_lab3
         public List<string> Cells { get; set; }
 
         public string Winner { get; set; }
-        private List<int> winningCells { get; set; }
-
+        private List<int> WinningCells { get; set; }
+        public int Layer { get; set; }
         public string Id { get; set; }
-
         public List<IComponent> Siblings { get; set; }
         public List<IComponent> Children { get; set; }
 
 
-        public LeafBoard()
+        public LeafBoard(int layer)
         {
             Cells = new List<string>();
             Cells.Add("NW");
@@ -30,21 +29,22 @@ namespace csd_lab3
             Cells.Add("SC");
             Cells.Add("SE");
             Id = "NW";
+            Layer = layer;
 
             Siblings = new List<IComponent>();
             Siblings.Add(this);
-            Siblings.Add(Copy("NC"));
-            Siblings.Add(Copy("NE"));
-            Siblings.Add(Copy("CW"));
-            Siblings.Add(Copy("CC"));
-            Siblings.Add(Copy("CE"));
-            Siblings.Add(Copy("SW"));
-            Siblings.Add(Copy("SC"));
-            Siblings.Add(Copy("SE"));
+            Siblings.Add(Copy("NC", Layer));
+            Siblings.Add(Copy("NE", Layer));
+            Siblings.Add(Copy("CW", Layer));
+            Siblings.Add(Copy("CC", Layer));
+            Siblings.Add(Copy("CE", Layer));
+            Siblings.Add(Copy("SW", Layer));
+            Siblings.Add(Copy("SC", Layer));
+            Siblings.Add(Copy("SE", Layer));
 
         }
 
-        public LeafBoard(string id)
+        public LeafBoard(string id, int layer)
         {
             Cells = new List<string>();
             Cells.Add("NW");
@@ -57,8 +57,17 @@ namespace csd_lab3
             Cells.Add("SC");
             Cells.Add("SE");
             Id = id;
+            Layer = layer;
         }
+        public List<IComponent> GetAllBoards(IComponent tree)
+        {
+            List<IComponent> result = new List<IComponent>();
 
+            result.Add(tree);
+
+            return result;
+
+        }
         public List<string> GetWinningLargeCells(IComponent tree, string[] movesWithPlayer)
         {
             return GetWinningSmallCells(tree);
@@ -72,7 +81,7 @@ namespace csd_lab3
             {
                 int indexPos = i;
 
-                if (Cells[i] == tree.Winner && winningCells.Contains(i))
+                if (Cells[i] == tree.Winner && WinningCells.Contains(i))
                 {
                     if (indexPos == 0)
                     {
@@ -124,18 +133,25 @@ namespace csd_lab3
 
         public List<string> GetWinsOfPlayers(IComponent tree, string[] moves)
         {
-            List<string> result = new List<string>();
 
-            if (tree.Winner == "x")
-            {
-                result.Add("x");
-            }
-            else if (tree.Winner == "o")
-            {
-                result.Add("o");
-            }
+            List<string> thisLayerResult = new List<string>();
 
-            return result;
+            thisLayerResult.AddRange(Cells);
+
+            return thisLayerResult;
+
+            //List<string> result = new List<string>();
+
+            //if (tree.Winner == "x")
+            //{
+            //    result.Add("x");
+            //}
+            //else if (tree.Winner == "o")
+            //{
+            //    result.Add("o");
+            //}
+
+            //return result;
         }
 
         public void FillTree(IComponent tree, string[] moves)
@@ -145,9 +161,9 @@ namespace csd_lab3
                 MakeMove(move);
             }
         }
-        public IComponent Copy(string id)
+        public IComponent Copy(string id, int layer)
         {
-            IComponent component = new LeafBoard(id);
+            IComponent component = new LeafBoard(id, layer);
             return component;
         }
 
@@ -179,7 +195,7 @@ namespace csd_lab3
 
         public void DeterminateWinner()
         {
-            winningCells = new List<int>();
+            WinningCells = new List<int>();
 
             CheckWinnerHorizontally();
             CheckWinnerVertically();
@@ -197,24 +213,24 @@ namespace csd_lab3
             if (Cells[0] == Cells[1] && Cells[1] == Cells[2])
             {
                 Winner = Cells[0];
-                winningCells.Add(0);
-                winningCells.Add(1);
-                winningCells.Add(2);
+                WinningCells.Add(0);
+                WinningCells.Add(1);
+                WinningCells.Add(2);
 
             }
             else if (Cells[3] == Cells[4] && Cells[4] == Cells[5])
             {
                 Winner = Cells[3];
-                winningCells.Add(3);
-                winningCells.Add(4);
-                winningCells.Add(5);
+                WinningCells.Add(3);
+                WinningCells.Add(4);
+                WinningCells.Add(5);
             }
             else if (Cells[6] == Cells[7] && Cells[7] == Cells[8])
             {
                 Winner = Cells[6];
-                winningCells.Add(6);
-                winningCells.Add(7);
-                winningCells.Add(8);
+                WinningCells.Add(6);
+                WinningCells.Add(7);
+                WinningCells.Add(8);
             }
         }
 
@@ -223,23 +239,23 @@ namespace csd_lab3
             if (Cells[0] == Cells[3] && Cells[3] == Cells[6])
             {
                 Winner = Cells[0];
-                winningCells.Add(0);
-                winningCells.Add(3);
-                winningCells.Add(6);
+                WinningCells.Add(0);
+                WinningCells.Add(3);
+                WinningCells.Add(6);
             }
             else if (Cells[1] == Cells[4] && Cells[4] == Cells[7])
             {
                 Winner = Cells[1];
-                winningCells.Add(1);
-                winningCells.Add(4);
-                winningCells.Add(7);
+                WinningCells.Add(1);
+                WinningCells.Add(4);
+                WinningCells.Add(7);
             }
             else if (Cells[2] == Cells[5] && Cells[5] == Cells[8])
             {
                 Winner = Cells[2];
-                winningCells.Add(2);
-                winningCells.Add(5);
-                winningCells.Add(8);
+                WinningCells.Add(2);
+                WinningCells.Add(5);
+                WinningCells.Add(8);
             }
         }
 
@@ -248,16 +264,16 @@ namespace csd_lab3
             if (Cells[0] == Cells[4] && Cells[4] == Cells[8])
             {
                 Winner = Cells[0];
-                winningCells.Add(0);
-                winningCells.Add(4);
-                winningCells.Add(8);
+                WinningCells.Add(0);
+                WinningCells.Add(4);
+                WinningCells.Add(8);
             }
             else if (Cells[6] == Cells[4] && Cells[4] == Cells[2])
             {
                 Winner = Cells[6];
-                winningCells.Add(6);
-                winningCells.Add(4);
-                winningCells.Add(2);
+                WinningCells.Add(6);
+                WinningCells.Add(4);
+                WinningCells.Add(2);
             }
         }
 

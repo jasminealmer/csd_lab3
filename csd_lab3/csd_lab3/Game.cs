@@ -24,7 +24,8 @@ namespace csd_lab3
             winningLargeCells = OrderResult(tree.GetWinningLargeCells(tree, movesWithPlayer), movesWithPlayer);
             winningSmallCells = OrderResult(tree.GetWinningSmallCells(tree), movesWithPlayer);
 
-            winsOfPlayers = tree.GetWinsOfPlayers(tree, movesWithPlayer);
+            //winsOfPlayers = tree.GetWinsOfPlayers(tree, movesWithPlayer);
+            winsOfPlayers = GetWins(tree, depth);
 
             results.Add("Winning Large Cells: ", winningLargeCells);
             results.Add("Winning Small Cells: ", winningSmallCells);
@@ -52,6 +53,69 @@ namespace csd_lab3
             }
 
             return results;
+
+        }
+
+        private List<string> GetWins(IComponent tree, int depth)
+        {
+            List<string> result = new List<string>();
+            List<IComponent> allBoards = new List<IComponent>();
+            Dictionary<int, List<IComponent>> allLayers = new Dictionary<int, List<IComponent>>();
+            int counterX = 0;
+            int counterO = 0;
+            string winsOfX = string.Empty;
+            string winsOfO = string.Empty;
+
+            allBoards = tree.GetAllBoards(tree);
+
+            for (int i = 0; i <= depth; i++)
+            {
+                var layer = allBoards.Where(x => x.Layer == i);
+                allLayers.Add(i, layer.ToList());
+            }
+
+            var lastLayer = allLayers.Keys.Last();
+
+            foreach (var layer in allLayers)
+            {
+                List<IComponent> onlyBoards = layer.Value;
+
+                foreach (IComponent board in onlyBoards)
+                {
+                    if (board.Winner == "x")
+                    {
+                        counterX++;
+                    }
+                    else if (board.Winner == "o")
+                    {
+                        counterO++;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+
+                }
+
+                if (layer.Key == lastLayer)
+                {
+                    winsOfX += counterX.ToString();
+                    winsOfO += counterO.ToString();
+                }
+                else
+                {
+                    winsOfX += counterX.ToString() + ".";
+                    winsOfO += counterO.ToString() + ".";
+                    
+                }
+                counterX = 0;
+                counterO = 0;
+            }
+
+            result.Add(winsOfX);
+            result.Add(winsOfO);
+
+            return result;
 
         }
         private int DecideDepth(string firstCoord)
