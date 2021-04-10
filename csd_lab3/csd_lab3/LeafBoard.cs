@@ -68,7 +68,7 @@ namespace csd_lab3
             return result;
 
         }
-        public List<string> GetWinningLargeCells(IComponent tree, string[] movesWithPlayer)
+        public List<string> GetWinningLargeCells(IComponent tree)
         {
             return GetWinningSmallCells(tree);
         }
@@ -129,29 +129,6 @@ namespace csd_lab3
             }
 
             return result;
-        }
-
-        public List<string> GetWinsOfPlayers(IComponent tree, string[] moves)
-        {
-
-            List<string> thisLayerResult = new List<string>();
-
-            thisLayerResult.AddRange(Cells);
-
-            return thisLayerResult;
-
-            //List<string> result = new List<string>();
-
-            //if (tree.Winner == "x")
-            //{
-            //    result.Add("x");
-            //}
-            //else if (tree.Winner == "o")
-            //{
-            //    result.Add("o");
-            //}
-
-            //return result;
         }
 
         public void FillTree(IComponent tree, string[] moves)

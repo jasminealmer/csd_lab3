@@ -28,10 +28,23 @@ namespace csd_lab3
             string[] splittedInput = input.Split(",");
             return splittedInput;
         }
-
+        public bool NoDuplicates(string[] moves)
+        {
+            for (int i = 0; i < moves.Length; i++)
+            {
+                for (int j = i + 1; j < moves.Length; j++)
+                {
+                    if (moves[i] == moves[j])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
         //public string ParseOutput(LeafBoard leafboard)
         //{
-            
+
         //}
 
     }

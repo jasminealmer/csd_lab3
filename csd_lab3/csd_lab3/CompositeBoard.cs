@@ -53,23 +53,19 @@ namespace csd_lab3
         public IComponent GenerateTree(int depth)
         {
             IComponent component = null;
-            int stop = 0;
             for (int i = depth; i >= 0; i--)
             {
                 if (i == depth)
                 {
                     component = new LeafBoard(i);
-                    //component.Layer = i;
                 }
                 else if (i == 0)
                 {
                     component = new CompositeBoard(component.Siblings);
-                    //component.Layer = i;
                 }
                 else
                 {
                     component = new CompositeBoard(component.Siblings, i);
-                    //component.Layer = i;
                 }
             }
             return component;
@@ -195,7 +191,7 @@ namespace csd_lab3
                 Winner = Children[6].Winner;
             }
         }
-        public List<string> GetWinningLargeCells(IComponent tree, string[] moves)
+        public List<string> GetWinningLargeCells(IComponent tree)
         {
             List<string> result = new List<string>();
 
@@ -245,82 +241,6 @@ namespace csd_lab3
             return result;
 
         }
-
-        public List<string> GetWinsOfPlayers(IComponent tree, string[] moves)
-        {
-
-
-            var test = tree.Children.Where(x => x.Layer == 1);
-
-            //List<string> allLayers = new List<string>();
-            List<string> winsPerLayer = new List<string>();
-
-
-            //försöker med linq
-            var layer1 = tree.Children.Select(x => x.Winner);
-            //winsPerLayer.AddRange(layer.ToList());
-
-            foreach (IComponent child in tree.Children)
-            {
-                var layer = child.GetWinsOfPlayers(child, moves);
-                winsPerLayer.AddRange(layer.ToList());
-
-            }
-
-            return winsPerLayer;
-
-
-            //int treeWinner = 1;
-            //int treeLooser = 0;
-
-            //List<string> layerWins = new List<string>();
-            //List<string> result = new List<string>();
-            //int countX = 0;
-            //int countO = 0;
-            //string winsOfX = string.Empty;
-            //string winsOfO = string.Empty;
-
-            //foreach (IComponent child in tree.Children)
-            //{
-            //    layerWins.AddRange(child.GetWinsOfPlayers(child, moves));
-
-            //    foreach (string winner in layerWins)
-            //    {
-            //        if (winner == "x")
-            //        {
-            //            countX++;
-            //        }
-            //        else
-            //        {
-            //            countO++;
-            //        }
-
-            //    }
-            //}
-
-            //if (tree.Winner == "x")
-            //{
-            //    winsOfX = treeWinner.ToString() + "." + countX.ToString();
-            //    winsOfO = treeLooser.ToString() + "." + countO.ToString();
-            //    countX = 0;
-            //    countO = 0;
-            //}
-            //else if (tree.Winner == "o")
-            //{
-            //    winsOfO = treeWinner.ToString() + "." + countO.ToString();
-            //    winsOfX = treeLooser.ToString() + "." + countX.ToString();
-            //    countX = 0;
-            //    countO = 0;
-            //}
-
-            //result.Add(winsOfX);
-            //result.Add(winsOfO);
-            //return result;
-
-        }
-
-       
-
        
     }
 }

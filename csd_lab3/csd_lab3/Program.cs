@@ -12,8 +12,15 @@ namespace csd_lab3
             Game game = new Game();
 
             string[] parsedInput = parse.ParseInput(input);
-
-            game.PlayGame(parsedInput);
+            if (parse.NoDuplicates(parsedInput))
+            {
+                game.PlayGame(parsedInput);
+            }
+            else
+            {
+                Console.WriteLine("The input contains duplicated moves, try again!");
+            }
+           
 
             //input and output
 

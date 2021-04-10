@@ -17,10 +17,8 @@ namespace csd_lab3
         public IComponent Copy(string id, int layer);
         public List<IComponent> GetAllBoards(IComponent tree);
 
-        public List<string> GetWinningLargeCells(IComponent tree, string[] moves);
+        public List<string> GetWinningLargeCells(IComponent tree);
         public List<string> GetWinningSmallCells(IComponent tree);
-
-        public List<string> GetWinsOfPlayers(IComponent tree, string[] moves);
 
         public void FillTree(IComponent tree, string[] moves);
 

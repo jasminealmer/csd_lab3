@@ -21,39 +21,15 @@ namespace csd_lab3
 
             tree.FillTree(tree, movesWithPlayer);
             tree.DeterminateWinner();
-            winningLargeCells = OrderResult(tree.GetWinningLargeCells(tree, movesWithPlayer), movesWithPlayer);
+            winningLargeCells = OrderResult(tree.GetWinningLargeCells(tree), movesWithPlayer);
             winningSmallCells = OrderResult(tree.GetWinningSmallCells(tree), movesWithPlayer);
-
-            //winsOfPlayers = tree.GetWinsOfPlayers(tree, movesWithPlayer);
             winsOfPlayers = GetWins(tree, depth);
 
             results.Add("Winning Large Cells: ", winningLargeCells);
             results.Add("Winning Small Cells: ", winningSmallCells);
-
-            if (depth == 0 && tree.Winner == "x")
-            {
-                List<string> orderOfWins = new List<string>();
-                orderOfWins.Add("1");
-                orderOfWins.Add("0");
-
-                results.Add("Wins Of Players: ", orderOfWins);
-            }
-            else if (depth == 0 && tree.Winner == "o")
-            {
-                List<string> orderOfWins = new List<string>();
-                orderOfWins.Add("0");
-                orderOfWins.Add("1");
-
-                results.Add("Wins Of Players: ", orderOfWins);
-            }
-
-            else
-            {
-                results.Add("Wins Of Players: ", winsOfPlayers);
-            }
+            results.Add("Wins of Players: ", winsOfPlayers);
 
             return results;
-
         }
 
         private List<string> GetWins(IComponent tree, int depth)
