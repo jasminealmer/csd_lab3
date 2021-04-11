@@ -10,10 +10,10 @@ namespace csd_lab3
         public List<IComponent> Children { get; set; }
         public string Winner { get; set; } 
         public int Layer { get; set; }
-
         public string Id { get; set; }
-
         public List<IComponent> Siblings { get; set; }
+
+        CompositePrototype prototype = new CompositePrototype();
 
         public CompositeBoard()
         {
@@ -28,20 +28,19 @@ namespace csd_lab3
 
             Siblings = new List<IComponent>();
             Siblings.Add(this);
-            Siblings.Add(Copy("NC", Layer));
-            Siblings.Add(Copy("NE", Layer));
-            Siblings.Add(Copy("CW", Layer));
-            Siblings.Add(Copy("CC", Layer));
-            Siblings.Add(Copy("CE", Layer));
-            Siblings.Add(Copy("SW", Layer));
-            Siblings.Add(Copy("SC", Layer));
-            Siblings.Add(Copy("SE", Layer));
+            Siblings.Add(prototype.Copy("NC", Layer));
+            Siblings.Add(prototype.Copy("NE", Layer));
+            Siblings.Add(prototype.Copy("CW", Layer));
+            Siblings.Add(prototype.Copy("CC", Layer));
+            Siblings.Add(prototype.Copy("CE", Layer));
+            Siblings.Add(prototype.Copy("SW", Layer));
+            Siblings.Add(prototype.Copy("SC", Layer));
+            Siblings.Add(prototype.Copy("SE", Layer));
         }
 
         public CompositeBoard(List<IComponent> children) 
         {
             Children = children;
-            //last component
         }
 
         public CompositeBoard(List<IComponent> children, string id, int layer)
@@ -97,12 +96,12 @@ namespace csd_lab3
 
         }
        
-        public IComponent Copy(string id, int layer)
-        {
-            IComponent leaf = new LeafBoard(layer +1);
-            IComponent composite = new CompositeBoard(leaf.Siblings, id, layer);
-            return composite;
-        }
+        //public IComponent Copy(string id, int layer)
+        //{
+        //    IComponent leaf = new LeafBoard(layer +1);
+        //    IComponent composite = new CompositeBoard(leaf.Siblings, id, layer);
+        //    return composite;
+        //}
 
         public void MakeMove(string move)
         {

@@ -2,7 +2,7 @@
   "profiles": {
     "csd_lab3": {
       "commandName": "Project",
-      "commandLineArgs": "\"NW, NE, CC, CW, SE, CE, NC, NC\""
+      "commandLineArgs": "\"NW.NW.NW, NC.CC.NW, NW.NW.CC, NC.CC.CC, NW.NW.SE, NC.CC.SE, NW.CC.NW, NE.CC.NW, NW.CC.CC, NE.CC.CC, NW.CC.SE, NE.CC.SE, NW.SE.NW, CC.NW.NW, NW.SE.CC, CC.NW.CC, NW.SE.SE, CC.NW.SE, CW.NW.NW, CC.CC.NW, CW.NW.CC, CC.CC.CC, CW.NW.SE, CC.CC.SE, CW.CC.NW, CE.NW.NW, CW.CC.CC, CE.NW.CC, CW.CC.SE, CE.NW.SE, CW.SE.NW, CE.CC.NW, CW.SE.CC, CE.CC.CC, CW.SE.SE, CE.CC.SE, CC.SE.NW, CE.SE.NW, CC.SE.CC, CE.SE.CC, CC.SE.SE, CE.SE.SE, SW.NW.NW, SE.CC.NW, SW.NW.CC, SE.CC.CC, SW.NW.SE, SE.CC.SE, SW.CC.NW, SE.SE.NW, SW.CC.CC, SE.SE.CC, SW.CC.SE, SE.SE.SE, SW.SE.NW, SE.CE.NW, SW.SE.CC, SE.CE.CC, SW.SE.SE\""
     }
   }
 }

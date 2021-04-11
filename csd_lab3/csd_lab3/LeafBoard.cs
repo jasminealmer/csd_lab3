@@ -15,7 +15,7 @@ namespace csd_lab3
         public List<IComponent> Siblings { get; set; }
         public List<IComponent> Children { get; set; }
 
-
+        LeafPrototype prototype = new LeafPrototype();
         public LeafBoard(int layer)
         {
             Cells = new List<string>();
@@ -33,14 +33,14 @@ namespace csd_lab3
 
             Siblings = new List<IComponent>();
             Siblings.Add(this);
-            Siblings.Add(Copy("NC", Layer));
-            Siblings.Add(Copy("NE", Layer));
-            Siblings.Add(Copy("CW", Layer));
-            Siblings.Add(Copy("CC", Layer));
-            Siblings.Add(Copy("CE", Layer));
-            Siblings.Add(Copy("SW", Layer));
-            Siblings.Add(Copy("SC", Layer));
-            Siblings.Add(Copy("SE", Layer));
+            Siblings.Add(prototype.Copy("NC", Layer));
+            Siblings.Add(prototype.Copy("NE", Layer));
+            Siblings.Add(prototype.Copy("CW", Layer));
+            Siblings.Add(prototype.Copy("CC", Layer));
+            Siblings.Add(prototype.Copy("CE", Layer));
+            Siblings.Add(prototype.Copy("SW", Layer));
+            Siblings.Add(prototype.Copy("SC", Layer));
+            Siblings.Add(prototype.Copy("SE", Layer));
 
         }
 
@@ -138,11 +138,11 @@ namespace csd_lab3
                 MakeMove(move);
             }
         }
-        public IComponent Copy(string id, int layer)
-        {
-            IComponent component = new LeafBoard(id, layer);
-            return component;
-        }
+        //public IComponent Copy(string id, int layer)
+        //{
+        //    IComponent component = new LeafBoard(id, layer);
+        //    return component;
+        //}
 
         public void MakeMove(string move)
         {

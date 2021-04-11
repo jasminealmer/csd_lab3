@@ -42,10 +42,47 @@ namespace csd_lab3
             }
             return true;
         }
-        //public string ParseOutput(LeafBoard leafboard)
-        //{
 
-        //}
+        public bool ValidCharacters(string[] moves)
+        {
+            for (int i = 0; i < moves.Length; i++)
+            {
+                if (moves[0].Contains("."))
+                {
+                    string[] splittedMoves = moves[i].Split(".");
+
+                    for (int j = 0; j < splittedMoves.Length; j++)
+                    {
+                        if (splittedMoves[j] == "NW" || splittedMoves[j] == "NC" || splittedMoves[j] == "NE" || splittedMoves[j] == "CW" || splittedMoves[j] == "CC" || splittedMoves[j] == "CE" || splittedMoves[j] == "SW" || splittedMoves[j] == "SC" || splittedMoves[j] == "SE")
+                        {
+                            return true;
+                        }
+                    }
+                }
+                else
+                {
+                    if (moves[i] == "NW" || moves[i] == "NC" || moves[i] == "NE" || moves[i] == "CW" || moves[i] == "CC" || moves[i] == "CE" || moves[i] == "SW" || moves[i] == "SC" || moves[i] == "SE")
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool EqualLength(string[] moves)
+        {
+            int length = moves[0].Length;
+
+            for (int i = 0; i < moves.Length; i++)
+            {
+                if (moves[i].Length != length)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
     }
 }

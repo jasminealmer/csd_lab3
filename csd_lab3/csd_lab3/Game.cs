@@ -130,7 +130,6 @@ namespace csd_lab3
             return moves;
         }
 
-        //orders results by moves
         private List<string> OrderResult(List<string> unOrderedResult, string[] moves)
         {
 
@@ -163,11 +162,7 @@ namespace csd_lab3
                     continue;
                 }
             }
-
             return orderedResult;
-
         }
-
-
     }
 }
