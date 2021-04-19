@@ -15,7 +15,7 @@ namespace csd_lab3
         public List<IComponent> Siblings { get; set; }
         public List<IComponent> Children { get; set; }
 
-        LeafPrototype prototype = new LeafPrototype();
+        readonly LeafPrototype prototype = new LeafPrototype();
         public LeafBoard(int layer)
         {
             Cells = new List<string>();
@@ -138,11 +138,6 @@ namespace csd_lab3
                 MakeMove(move);
             }
         }
-        //public IComponent Copy(string id, int layer)
-        //{
-        //    IComponent component = new LeafBoard(id, layer);
-        //    return component;
-        //}
 
         public void MakeMove(string move)
         {
@@ -253,8 +248,5 @@ namespace csd_lab3
                 WinningCells.Add(2);
             }
         }
-
-
-
     }
 }

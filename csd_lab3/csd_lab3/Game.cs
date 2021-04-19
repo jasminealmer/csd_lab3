@@ -7,13 +7,13 @@ namespace csd_lab3
 {
     public class Game
     {
-        readonly CompositeBoard composite = new CompositeBoard();
-
-        List<string> winningLargeCells = new List<string>();
-        List<string> winningSmallCells = new List<string>();
-        List<string> winsOfPlayers = new List<string>();
         public Dictionary<string, List<string>> PlayGame(string[] moves)
         {
+            CompositeBoard composite = new CompositeBoard();
+            _ = new List<string>();
+            _ = new List<string>();
+            _ = new List<string>();
+
             Dictionary<string, List<string>> results = new Dictionary<string, List<string>>();
             int depth = DecideDepth(moves[0]);
             IComponent tree = composite.GenerateTree(depth);
@@ -21,9 +21,9 @@ namespace csd_lab3
 
             tree.FillTree(tree, movesWithPlayer);
             tree.DeterminateWinner();
-            winningLargeCells = OrderResult(tree.GetWinningLargeCells(tree), movesWithPlayer);
-            winningSmallCells = OrderResult(tree.GetWinningSmallCells(tree), movesWithPlayer);
-            winsOfPlayers = GetWins(tree, depth);
+            List<string> winningLargeCells = OrderResult(tree.GetWinningLargeCells(tree), movesWithPlayer);
+            List<string> winningSmallCells = OrderResult(tree.GetWinningSmallCells(tree), movesWithPlayer);
+            List<string> winsOfPlayers = GetWins(tree, depth);
 
             results.Add("Winning Large Cells: ", winningLargeCells);
             results.Add("Winning Small Cells: ", winningSmallCells);
@@ -112,7 +112,6 @@ namespace csd_lab3
             return depth;
         }
 
-        //Assign players of the moves
         private string[] AssignPlayers(string[] moves)
         {
 
@@ -132,7 +131,6 @@ namespace csd_lab3
 
         private List<string> OrderResult(List<string> unOrderedResult, string[] moves)
         {
-
             string checkLength = unOrderedResult[0];
             List<string> orderedResult = new List<string>();
             string move;

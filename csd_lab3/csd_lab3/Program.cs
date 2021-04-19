@@ -35,8 +35,8 @@ namespace csd_lab3
 
                 if (parse.EqualLength(parsedInput) && parse.ValidCharacters(parsedInput) && parse.NoDuplicates(parsedInput))
                 {
-                    Dictionary<string, List<string>> gameResults = new Dictionary<string, List<string>>();
-                    gameResults = game.PlayGame(parsedInput);
+                    _ = new Dictionary<string, List<string>>();
+                    Dictionary<string, List<string>> gameResults = game.PlayGame(parsedInput);
 
                     Console.WriteLine("The game results are:");
                     Console.WriteLine(" ");

@@ -13,7 +13,7 @@ namespace csd_lab3
         public string Id { get; set; }
         public List<IComponent> Siblings { get; set; }
 
-        CompositePrototype prototype = new CompositePrototype();
+        readonly CompositePrototype prototype = new CompositePrototype();
 
         public CompositeBoard()
         {
@@ -95,13 +95,6 @@ namespace csd_lab3
             }
 
         }
-       
-        //public IComponent Copy(string id, int layer)
-        //{
-        //    IComponent leaf = new LeafBoard(layer +1);
-        //    IComponent composite = new CompositeBoard(leaf.Siblings, id, layer);
-        //    return composite;
-        //}
 
         public void MakeMove(string move)
         {
@@ -123,9 +116,7 @@ namespace csd_lab3
                 {
                     continue;
                 }   
- 
             }
-            
         }
 
         public void DeterminateWinner()
@@ -222,7 +213,6 @@ namespace csd_lab3
 
                 }
             }
-
             return result;
            
         }
@@ -236,7 +226,6 @@ namespace csd_lab3
             {
                 result.AddRange(board.GetAllBoards(board));
             }
-
             return result;
 
         }
