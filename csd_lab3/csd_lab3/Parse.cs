@@ -4,7 +4,7 @@ using System.Text;
 
 namespace csd_lab3
 {
-    class Parse
+    public class Parse
     {
 
         public string[] ParseInput(string input)
