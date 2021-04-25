@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace csd_lab3
 {
-    public class Game
+    class Game
     {
         public Dictionary<string, List<string>> PlayGame(string[] moves)
         {
@@ -97,7 +97,6 @@ namespace csd_lab3
         private int DecideDepth(string firstCoord)
         {
             int depth = 0;
-            //counts depth
             foreach (char character in firstCoord)
             {
                 if (character == '.')

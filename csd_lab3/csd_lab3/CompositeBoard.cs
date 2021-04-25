@@ -41,6 +41,7 @@ namespace csd_lab3
         public CompositeBoard(List<IComponent> children) 
         {
             Children = children;
+            Siblings = new List<IComponent>() { new NullBoard(), new NullBoard(), new NullBoard(), new NullBoard(), new NullBoard(), new NullBoard(), new NullBoard(), new NullBoard(), new NullBoard() };
         }
 
         public CompositeBoard(List<IComponent> children, string id, int layer)
