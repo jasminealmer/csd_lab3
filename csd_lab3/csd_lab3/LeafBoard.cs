@@ -30,6 +30,7 @@ namespace csd_lab3
             Cells.Add("SE");
             Id = "NW";
             Layer = layer;
+            Children = new List<IComponent>() { new NullBoard(), new NullBoard(), new NullBoard(), new NullBoard(), new NullBoard(), new NullBoard(), new NullBoard(), new NullBoard(), new NullBoard() };
 
             Siblings = new List<IComponent>();
             Siblings.Add(this);
@@ -58,6 +59,7 @@ namespace csd_lab3
             Cells.Add("SE");
             Id = id;
             Layer = layer;
+            Children = new List<IComponent>() { new NullBoard(), new NullBoard(), new NullBoard(), new NullBoard(), new NullBoard(), new NullBoard(), new NullBoard(), new NullBoard(), new NullBoard() };
         }
         public List<IComponent> GetAllBoards(IComponent tree)
         {
