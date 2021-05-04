@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace csd_lab3
 {
-    class Game
+    public class Game
     {
         public Dictionary<string, List<string>> PlayGame(string[] moves)
         {
